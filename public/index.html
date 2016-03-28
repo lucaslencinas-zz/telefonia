@@ -88,10 +88,19 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#nuevasolicitud"><i class="fa fa-fw fa-arrows-v"></i> Nueva<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="nuevasolicitud" class="collapse">
                           <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="#" data-toggle="modal" data-target="#modalLogin">Alta Interno/extension</a>
                           </li>
                           <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="#">Alta Linea analogica</a>
+                          </li>
+                          <li>
+                            <a href="#">Alta Call Forwarding</a>
+                          </li>
+                          <li>
+                            <a href="#">Alta Hunt Group</a>
+                          </li>
+                          <li>
+                            <a href="#">Alta Pickup Group</a>
                           </li>
                         </ul>
                       </li>
@@ -113,10 +122,25 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#nuevoservicio"><i class="fa fa-fw fa-arrows-v"></i> Nueva<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="nuevoservicio" class="collapse">
                           <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="#">Solicitar VoiceMail</a>
                           </li>
                           <li>
-                            <a href="#">Dropdown Item</a>
+                            <a href="#">Solicitar Aparato</a>
+                          </li>
+                          <li>
+                            <a href="#">Cambio de Discado</a>
+                          </li>
+                          <li>
+                            <a href="#">Reset Password</a>
+                          </li>
+                          <li>
+                            <a href="#">Re-asignar</a>
+                          </li>
+                          <li>
+                            <a href="#">Dar de baja</a>
+                          </li>
+                          <li>
+                            <a href="#">Revalidar</a>
                           </li>
                         </ul>
                       </li>
@@ -155,11 +179,46 @@
     </div>
     <!-- /#wrapper -->
 
+    <!-- Modal Signup-->
+    <div class="modal fade bs-example-modal-sm" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+      <div id="" class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="modalLabel">Identificacion</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well">
+                            <form class="" id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="nroEmpleado" class="control-label">Nro de empleado</label>
+                                    <input type="text" class="form-control" id="nroEmpleado" name="nroEmpleado" value="" required="" >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pais" class="control-label">Seleccione Pais</label>
+                                    <input type="text" class="form-control" id="pais" name="pais" value="" required="" >
+                                    <span class="help-block"></span>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+
 
 
 </body>

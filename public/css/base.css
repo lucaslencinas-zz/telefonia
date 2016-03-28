@@ -25,6 +25,7 @@ body {
     width: 100%;
     padding: 0;
     background-color: #fff;
+    min-height: 600px;
 }
 
 .huge {
@@ -143,9 +144,14 @@ ul.alert-dropdown {
     padding: 0;
 }
 
+.side-nav>li>a {
+    display: block;
+    padding: 7px 15px;
+}
+
 .side-nav>li>ul>li>a {
     display: block;
-    padding: 10px 15px 10px 38px;
+    padding: 7px 15px 7px 38px;
     text-decoration: none;
     color: #999;
 }
@@ -160,7 +166,7 @@ ul.alert-dropdown {
 
 .side-nav>li>ul>li>ul>li>a {
     display: block;
-    padding: 10px 15px 10px 60px;
+    padding: 7px 15px 7px 60px;
     text-decoration: none;
     color: #999;
 }
