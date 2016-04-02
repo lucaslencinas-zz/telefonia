@@ -153,7 +153,7 @@
 
         <div id="page-wrapper">
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -191,7 +191,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="well">
-                            <form class="" id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                            <form class="" id="loginForm" novalidate="novalidate">
                                 <div class="form-group">
                                     <label for="nroEmpleado" class="control-label">Nro de empleado</label>
                                     <input type="text" class="form-control" id="nroEmpleado" name="nroEmpleado" value="" required="" >
@@ -207,7 +207,7 @@
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-block">Submit</button>
+                                <button class="btn btn-success btn-block">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -225,8 +225,13 @@
 
     <script type="text/javascript">
       $("#modalLogin button").click(function(){
+        $("#container-fluid").load("alta-interno-div.html");
+        $("#modalLogin").modal('toggle');
+        /*
         location.href = "alta-interno.html";
+        */
         return false;
+
       });
 
     </script>
