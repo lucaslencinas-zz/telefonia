@@ -47,8 +47,6 @@ Falta Delegar
 */
 
 
-
-
 mapPagesLinks['serviciosAprobados-a'] = {pagina: "servicios-aprobados-div.html", titulo: "Servicios Aprobadas"}
 mapPagesLinks['serviciosRechazados-a'] = {pagina: "servicios-rechazados-div.html", titulo: "Servicios Rechazadas"}
 mapPagesLinks['serviciosEsperando-a'] = {pagina: "servicios-esperando-div.html", titulo: "Servicios Esperando Confirmacion"}
@@ -67,3 +65,7 @@ mapPagesLinks['re-asignar-a'] = {pagina: "re-asignar-div.html", titulo: "Re-asig
 mapPagesLinks['dar-de-baja-a'] = {pagina: "dar-de-baja-div.html", titulo: "Dar de Baja"}
 
 mapPagesLinks['revalidar-a'] = {pagina: "revalidar-div.html", titulo: "Revalidar"}
+
+function abrirModalDeTicket(nroTicket){
+  alert("Abrir el modal del ticket: " + nroTicket);
+};
