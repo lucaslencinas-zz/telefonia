@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Delegar
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Solicitud
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-8">
+          <form class="form-horizontal" action="index.html" method="post">
+            <div class="form-group">
+              <label for="selectEdificio" class="col-sm-4 control-label">Edificio: </label>
+              <div class="col-sm-8">
+                <select class="form-control" name="selectEdificio">
+                  <option>Martinez</option>
+                  <option>Martinez2</option>
+                  <option>Martinez3</option>
+                  <option>Martinez4</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="textModulo" class="col-sm-4 control-label">Modulo/Piso: </label>
+              <div class="col-sm-8">
+                <input class="form-control" name="textModulo">
+              </input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="textInterno" class="col-sm-4 control-label">Interno de Referencia: </label>
+              <div class="col-sm-8">
+                <input class="form-control" name="textInterno">
+              </input>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="checkboxAparato"> Requiere Aparato:
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="selectDiscado" class="col-sm-4 control-label">Tipo de Discado: </label>
+              <div class="col-sm-8">
+                <select class="form-control" name="selectDiscado">
+                  <option>Local</option>
+                  <option>Internacion</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="checkboxVoiceMail"> Requiere VoiceMail:
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="selectEdificio" class="col-sm-4 control-label">Justificacion: </label>
+              <div class="col-sm-8">
+                <textarea class="form-control" name="selectEdificio" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-4 col-sm-8">
+                <button type="submit" name="Submit" class="btn btn-success">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    <!-- /.row -->
