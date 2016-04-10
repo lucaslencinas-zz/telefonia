@@ -8,6 +8,23 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'us-cdbr-iron-east-03.cleardb.net',
+  user     : 'b907d8d6e3ab57',
+  password : '06e49fb8',
+  database : 'heroku_74c23f2458ff8ba'
+});
+
+connection.connect();
+
+connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows[0].solution);
+});
+
+connection.end();
+
 var app = express();
 
 // view engine setup
