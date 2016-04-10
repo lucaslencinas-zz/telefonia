@@ -22,10 +22,11 @@ var pool  = mysql.createPool({
 
 pool.getConnection(function(err, connection) {
   // Use the connection
-  connection.query( 'SELECT 1 + 1 AS solution', function(err, rows) {
+  connection.query( 'SELECT * from empleados', function(err, rows) {
     // Always release the connection back to the pool after the (last) query.
     if (err) throw err;
-    console.log('The solution is: ', rows[0].solution);  
+    console.log('El nombre del usuario es: ', rows[0].name);
+    console.log('Toda la primera fila es: ', rows[0]);  
     connection.release();
 
     // Don't use the connection here, it has been returned to the pool.
