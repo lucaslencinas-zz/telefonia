@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var logins = require('./routes/logins')
 
 //----------------------------
 
@@ -26,52 +27,32 @@ pool.getConnection(function(err, connection) {
     // Always release the connection back to the pool after the (last) query.
     if (err) throw err;
     console.log('El nombre del usuario es: ', rows[0].name);
-    console.log('Toda la primera fila es: ', rows[0]);  
+    console.log('Toda la primera fila es: ', rows[0]);
     connection.release();
 
     // Don't use the connection here, it has been returned to the pool.
   });
 });
-/*
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'us-cdbr-iron-east-03.cleardb.net',
-  user     : 'b907d8d6e3ab57',
-  password : '06e49fb8',
-  database : 'heroku_74c23f2458ff8ba'
-});
-
-connection.connect();
-
-connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
-});
-
-connection.end();
-
-
-*/
-
 //--------------------------
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/login', logins)
 
+app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

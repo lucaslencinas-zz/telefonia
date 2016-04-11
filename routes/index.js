@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  console.log("adentro del get a /");
+  if(req.cookies.usuario == undefined || req.cookies.password == undefined){
+    res.render('login.html');
+  }else{
+    res.render('index.html');
+  }
 });
 
 module.exports = router;
