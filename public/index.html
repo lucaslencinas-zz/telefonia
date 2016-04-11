@@ -56,14 +56,16 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-user"></i>&nbsp;<i id="dropdownNombreUsuario">John Smith </i>&nbsp;<b class="caret"></b>
+                   </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="#" id="logoutButton"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -239,11 +241,11 @@
 
       $(function(){
         if(Cookies.get('usuario') == undefined || Cookies.get('password') == undefined){
-          location.href = login.html;
+          location.href = "login.html";
         }else{
           Cookies.set('usuario', Cookies.get('usuario'));
           Cookies.set('password', Cookies.get('password'));
-          alert("Cookies-->  " +"Usuario: " +  Cookies.get('usuario') + ", Password: " +  Cookies.get('password') );
+          $("#dropdownNombreUsuario").text(Cookies.get('usuario')); // o dropdownNombreUsuario y algun hijode ahi
         }
       });
 
@@ -256,6 +258,12 @@
             return false;
           });
         }
+      });
+
+      $("#logoutButton").click(function(){
+        Cookies.remove('usuario');
+        Cookies.remove('password');
+        location.href = "login.html";
       });
 
     </script>
