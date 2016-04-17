@@ -6,6 +6,13 @@
 
 /* Global Styles */
 
+/*
+
+barra de arriba -> #82C0FF
+barra del costado --> #E0F1FF
+onHover --> 6190BF
+*/
+
 body {
     margin-top: 100px;
     background-color: #222;
@@ -137,6 +144,10 @@ ul.alert-dropdown {
     .side-nav li a:focus {
         outline: none;
         background-color: #000 !important;
+    }
+
+    .navbar-header{
+        width: 210px;
     }
 }
 

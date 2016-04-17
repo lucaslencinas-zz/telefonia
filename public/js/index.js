@@ -1,6 +1,32 @@
 
 var mapPagesLinks = [];
 
+/*
+solicitudesAprobadas-a
+solicitudesRechazadas-a
+solicitudesEsperando-a
+altaInterno-a
+altaLineaAnalogica-a
+altaCallForwardings-a
+altaHuntGroup-a
+altaPickupGroup-a
+altaCodigoFAC-a
+altaCodigoCMC-a
+delegar-a 
+serviciosAprobados-a
+serviciosRechazados-a
+serviciosEsperando-a
+solicitar-voice-mail-a
+solicitar-aparato-a
+cambio-de-discado-a
+reset-password-a
+re-asignar-a
+dar-de-baja-a
+revalidar-a
+
+*/
+
+
 mapPagesLinks['solicitudesAprobadas-a'] = {pagina: "solicitudes-aprobadas-div.html", titulo: "Solicitudes Aprobadas"}
 mapPagesLinks['solicitudesRechazadas-a'] = {pagina: "solicitudes-rechazadas-div.html", titulo: "Solicitudes Rechazadas"}
 mapPagesLinks['solicitudesEsperando-a'] = {pagina: "solicitudes-esperando-div.html", titulo: "Solicitudes Esperando Confirmacion"}
