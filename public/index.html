@@ -296,9 +296,20 @@
         #paisNuevoServicio
         */
 
-        $("#modalLogin button").click(function(){
-          $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").text()].pagina);
-          $("#modalLogin").modal('hide');
+        $("#modalNuevoServicio button").click(function(){
+          $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").attr("id")].pagina, function(){
+            console.log("Se cargo el fluid-container");
+            $("#traerDatosButton").click(function(){
+              /*Cambiarlo por una consulta a la base de datos*/
+              $('#nombreUsuarioEnAlta')[0].innerHTML += "Lucas";
+              $('#idLotusNoteEnAlta')[0].innerHTML += "Lucas";
+              $('#departamentoEnAlta')[0].innerHTML += "Lucas";
+              $('#gerenteEnAlta')[0].innerHTML += "Lucas";
+              $('#gerenteNivel1EnAlta')[0].innerHTML += "Lucas";
+              $('#gerenteNivel2EnAlta')[0].innerHTML += "Lucas";
+            });
+          });
+          $("#modalNuevoServicio").modal('hide');
           return false;
         });
       });

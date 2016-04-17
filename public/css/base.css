@@ -199,3 +199,16 @@ ul.alert-dropdown {
 .table th a {
     cursor: pointer;
 }
+
+
+@media(min-width:768px) {
+    .panel-default {
+        margin: 0 15px 5px 15px;
+    }
+    .panel-body{
+      padding-bottom: 5px;
+    }
+    .form-group{
+      margin-bottom: 5px;
+    }
+}
