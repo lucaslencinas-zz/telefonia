@@ -298,15 +298,16 @@
 
         $("#modalNuevoServicio button").click(function(){
           $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").attr("id")].pagina, function(){
-            console.log("Se cargo el fluid-container");
-            $("#traerDatosButton").click(function(){
-              /*Cambiarlo por una consulta a la base de datos*/
-              $('#nombreUsuarioEnAlta')[0].innerHTML += "Lucas";
-              $('#idLotusNoteEnAlta')[0].innerHTML += "Lucas";
-              $('#departamentoEnAlta')[0].innerHTML += "Lucas";
-              $('#gerenteEnAlta')[0].innerHTML += "Lucas";
-              $('#gerenteNivel1EnAlta')[0].innerHTML += "Lucas";
-              $('#gerenteNivel2EnAlta')[0].innerHTML += "Lucas";
+            $("#rowTraerDatos").load("traer-datos-div.html",function(){
+              $("#traerDatosButton").click(function(){
+                /*Cambiarlo por una consulta a la base de datos*/
+                $('#nombreUsuarioEnAlta span').text("Lucas")
+                $('#idLotusNoteEnAlta span').text("123123")
+                $('#departamentoEnAlta span').text("Finanzas")
+                $('#gerenteEnAlta span').text("Hernan")
+                $('#gerenteNivel1EnAlta span').text("Patricia")
+                $('#gerenteNivel2EnAlta span').text("Gustavo")
+              });
             });
           });
           $("#modalNuevoServicio").modal('hide');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
     <!-- Page Heading -->
-    <div class="row">
+    <div class="row" id="rowHeader">
         <div class="col-lg-12">
             <h1 class="page-header">
                 Alta Interno
@@ -15,47 +15,7 @@
     </div>
     <!-- /.row -->
 
-    <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="col-lg-8">
-            <div class="form-horizontal" id="formTraerDatos">
-              <div class="form-group">
-                <label for="nroEmpleado" class="col-sm-4 control-label">Nro de empleado:</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control input-sm" id="nroEmpleado" name="nroEmpleado" value="" required="" >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="pais" class="col-sm-4 control-label">Seleccione Pais:</label>
-                <div class="col-sm-4">
-                  <select class="form-control input-sm" name="pais" id="pais">
-                    <option>Argentina</option>
-                    <option>Brasil</option>
-                    <option>Chile</option>
-                    <option>Uruguay</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-3">
-                  <button class="btn btn-success btn-block btn-sm" id="traerDatosButton">Traer Datos</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <ul>
-              <li id="nombreUsuarioEnAlta">Nombre:</li>
-              <li id="idLotusNoteEnAlta">ID de Lotus Note:</li>
-              <li id="departamentoEnAlta">Departamento:</li>
-              <li id="gerenteEnAlta">Gerente: </li>
-              <li id="gerenteNivel1EnAlta">Gerente Nivel 1:</li>
-              <li id="gerenteNivel2EnAlta">Gerente Nivel 2:</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="row" id="rowTraerDatos">
     </div>
 
     <div class="row">
@@ -100,9 +60,9 @@
               <div class="form-group">
                 <label for="selectDiscado" class="col-sm-4 control-label input-sm">Tipo de Discado: </label>
                 <div class="col-sm-8">
-                  <select class="form-control" name="selectDiscado">
+                  <select class="form-control input-sm" name="selectDiscado">
                     <option>Local</option>
-                    <option>Internacion</option>
+                    <option>Internacional</option>
                   </select>
                 </div>
               </div>
@@ -116,9 +76,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="selectEdificio" class="col-sm-4 control-label input-sm">Justificacion: </label>
+                <label for="justificacion" class="col-sm-4 control-label input-sm">Justificacion: </label>
                 <div class="col-sm-8">
-                  <textarea class="form-control input-sm" name="selectEdificio" rows="4"></textarea>
+                  <textarea class="form-control input-sm" name="justificacion" rows="4"></textarea>
                 </div>
               </div>
               <div class="form-group">

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="col-lg-8">
+            <div class="form-horizontal" id="formTraerDatos">
+              <div class="form-group">
+                <label for="nroEmpleado" class="col-sm-4 control-label">Nro de empleado:</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control input-sm" id="nroEmpleado" name="nroEmpleado" value="" required="" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="pais" class="col-sm-4 control-label">Seleccione Pais:</label>
+                <div class="col-sm-4">
+                  <select class="form-control input-sm" name="pais" id="pais">
+                    <option>Argentina</option>
+                    <option>Brasil</option>
+                    <option>Chile</option>
+                    <option>Uruguay</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-2">
+                  <button class="btn btn-success btn-block btn-sm" id="traerDatosButton">Traer Datos</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <ul>
+              <li id="nombreUsuarioEnAlta">Nombre: <span></span></li>
+              <li id="idLotusNoteEnAlta">ID de Lotus Note: <span></span></li>
+              <li id="departamentoEnAlta">Departamento: <span></span></li>
+              <li id="gerenteEnAlta">Gerente: <span></span></li>
+              <li id="gerenteNivel1EnAlta">Gerente Nivel 1: <span></span></li>
+              <li id="gerenteNivel2EnAlta">Gerente Nivel 2: <span></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
