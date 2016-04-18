@@ -43,38 +43,8 @@
                 <li class="dropdown">
                   <a href="#" data-toggle="modal" data-target="#modalNuevoServicio">Nuevo Servicio</a>
                 </li>
-                <li class="dropdown">
-                  <a href="#">Nuevo Perfil</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#">Acciones</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#">Expandir</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#">Colapsar</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#">Refrescar</a>
-                </li>
             </ul>
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-user"></i>&nbsp;<i id="dropdownNombreUsuario">John Smith </i>&nbsp;<b class="caret"></b>
@@ -93,87 +63,17 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-
-                  <li class="active">
-                    <a href="javascript:;" data-toggle="collapse" data-target="#solicitudes"><i class="fa fa-fw fa-arrows-v"></i> Solicitudes <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="solicitudes" class="collapse">
+                  <li class="">
+                    <a href="#" id="servicios-a">Mis Servicios </a>
+                    <ul id="servicios">
                       <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="solicitudesAprobadas-a">Aprobadas</a>
+                        <a href="#" id="servicios-aprobados-a">Aprobados</a>
                       </li>
                       <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="solicitudesRechazadas-a">Rechazadas</a>
+                        <a href="#" id="servicios-rechazados-a">Rechazados</a>
                       </li>
                       <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="solicitudesEsperando-a">Esperando confirmacion</a>
-                      </li>
-                      <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#nuevasolicitud"><i class="fa fa-fw fa-arrows-v"></i> Nueva<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="nuevasolicitud" class="collapse">
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaInterno-a">Alta Interno/extension</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaLineaAnalogica-a">Alta Linea analogica</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaCallForwardings-a">Alta Call Forwarding</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaHuntGroup-a">Alta Hunt Group</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaPickupGroup-a">Alta Pickup Group</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaCodigoFAC-a">Alta Codigo FAC</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="altaCodigoCMC-a">Alta Codigo CMC</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="delegar-a">Delegar</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#servicios"><i class="fa fa-fw fa-arrows-v"></i> Servicios <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="servicios" class="collapse">
-                      <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="serviciosAprobados-a">Aprobados</a>
-                      </li>
-                      <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="serviciosRechazados-a">Rechazados</a>
-                      </li>
-                      <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="serviciosEsperando-a">Esperando confirmacion</a>
-                      </li>
-                      <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#nuevoservicio"><i class="fa fa-fw fa-arrows-v"></i> Nueva<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="nuevoservicio" class="collapse">
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="solicitar-voice-mail-a">Solicitar VoiceMail</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="solicitar-aparato-a">Solicitar Aparato</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="cambio-de-discado-a">Cambio de Discado</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="reset-password-a">Reset Password</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="re-asignar-a">Re-asignar</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="dar-de-baja-a">Dar de baja</a>
-                          </li>
-                          <li>
-                            <a href="#" data-toggle="modal" data-target="#modalLogin" data-pressedButton-id="revalidar-a">Revalidar</a>
-                          </li>
-                        </ul>
+                        <a href="#" id="servicios-esperando-a">Esperando confirmacion</a>
                       </li>
                     </ul>
                   </li>
@@ -185,22 +85,6 @@
         <div id="page-wrapper">
 
             <div class="container-fluid" id="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Dashboard <small>Statistics Overview</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
 
@@ -283,8 +167,16 @@
         }else{
           Cookies.set('usuario', Cookies.get('usuario'));
           Cookies.set('password', Cookies.get('password'));
-          $("#dropdownNombreUsuario").text(Cookies.get('usuario')); // o dropdownNombreUsuario y algun hijode ahi
+          $("#dropdownNombreUsuario").text(Cookies.get('usuario'));
+          $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina/*, cargarTraerDatosRow*/);
+
+          $(".side-nav a").click(function(){
+            $("#container-fluid").load(mapPagesLinks[$(this).attr("id")].pagina/*, cargarTraerDatosRow*/);
+            $("#modalNuevoServicio").modal('hide');
+            return false;
+          })
         }
+
       });
 
       $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
@@ -297,19 +189,7 @@
         */
 
         $("#modalNuevoServicio button").click(function(){
-          $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").attr("id")].pagina, function(){
-            $("#rowTraerDatos").load("traer-datos-div.html",function(){
-              $("#traerDatosButton").click(function(){
-                /*Cambiarlo por una consulta a la base de datos*/
-                $('#nombreUsuarioEnAlta span').text("Lucas")
-                $('#idLotusNoteEnAlta span').text("123123")
-                $('#departamentoEnAlta span').text("Finanzas")
-                $('#gerenteEnAlta span').text("Hernan")
-                $('#gerenteNivel1EnAlta span').text("Patricia")
-                $('#gerenteNivel2EnAlta span').text("Gustavo")
-              });
-            });
-          });
+          $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").attr("id")].pagina, cargarTraerDatosRow);
           $("#modalNuevoServicio").modal('hide');
           return false;
         });
@@ -320,6 +200,21 @@
         Cookies.remove('password');
         location.href = "login.html";
       });
+
+
+      function cargarTraerDatosRow(){
+        $("#rowTraerDatos").load("traer-datos-div.html",function(){
+          $("#traerDatosButton").click(function(){
+            /*Cambiarlo por una consulta a la base de datos*/
+            $('#nombreUsuarioEnAlta span').text("Lucas")
+            $('#idLotusNoteEnAlta span').text("123123")
+            $('#departamentoEnAlta span').text("Finanzas")
+            $('#gerenteEnAlta span').text("Hernan")
+            $('#gerenteNivel1EnAlta span').text("Patricia")
+            $('#gerenteNivel2EnAlta span').text("Gustavo")
+          });
+        });
+      }
 
     </script>
 

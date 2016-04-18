@@ -12,7 +12,7 @@ altaHuntGroup-a
 altaPickupGroup-a
 altaCodigoFAC-a
 altaCodigoCMC-a
-delegar-a 
+delegar-a
 serviciosAprobados-a
 serviciosRechazados-a
 serviciosEsperando-a
@@ -27,9 +27,6 @@ revalidar-a
 */
 
 
-mapPagesLinks['solicitudesAprobadas-a'] = {pagina: "solicitudes-aprobadas-div.html", titulo: "Solicitudes Aprobadas"}
-mapPagesLinks['solicitudesRechazadas-a'] = {pagina: "solicitudes-rechazadas-div.html", titulo: "Solicitudes Rechazadas"}
-mapPagesLinks['solicitudesEsperando-a'] = {pagina: "solicitudes-esperando-div.html", titulo: "Solicitudes Esperando Confirmacion"}
 
 mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", titulo: "Alta Interno/extension"}
 mapPagesLinks['altaLineaAnalogica-a'] = {pagina: "alta-linea-analogica-div.html", titulo: "Alta Linea analogica"}
@@ -72,10 +69,10 @@ Falta alta codigo CMC
 Falta Delegar
 */
 
-
-mapPagesLinks['serviciosAprobados-a'] = {pagina: "servicios-aprobados-div.html", titulo: "Servicios Aprobadas"}
-mapPagesLinks['serviciosRechazados-a'] = {pagina: "servicios-rechazados-div.html", titulo: "Servicios Rechazadas"}
-mapPagesLinks['serviciosEsperando-a'] = {pagina: "servicios-esperando-div.html", titulo: "Servicios Esperando Confirmacion"}
+mapPagesLinks['servicios-a'] = {pagina: "servicios-div.html", titulo: "Servicios"}
+mapPagesLinks['servicios-aprobados-a'] = {pagina: "servicios-aprobados-div.html", titulo: "Servicios Aprobadas"}
+mapPagesLinks['servicios-rechazados-a'] = {pagina: "servicios-rechazados-div.html", titulo: "Servicios Rechazadas"}
+mapPagesLinks['servicios-esperando-a'] = {pagina: "servicios-esperando-div.html", titulo: "Servicios Esperando Confirmacion"}
 
 
 mapPagesLinks['solicitar-voice-mail-a'] = {pagina: "solicitar-voice-mail-div.html", titulo: "Solicitar VoiceMail"}
