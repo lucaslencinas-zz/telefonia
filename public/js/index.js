@@ -72,7 +72,7 @@ Falta Delegar
 mapPagesLinks['servicios-a'] = {pagina: "servicios-div.html", titulo: "Servicios"}
 mapPagesLinks['servicios-aprobados-a'] = {pagina: "servicios-aprobados-div.html", titulo: "Servicios Aprobadas"}
 mapPagesLinks['servicios-rechazados-a'] = {pagina: "servicios-rechazados-div.html", titulo: "Servicios Rechazadas"}
-mapPagesLinks['servicios-esperando-a'] = {pagina: "servicios-esperando-div.html", titulo: "Servicios Esperando Confirmacion"}
+mapPagesLinks['servicios-pendientes-a'] = {pagina: "servicios-pendientes-div.html", titulo: "Servicios Pendientes"}
 
 
 mapPagesLinks['solicitar-voice-mail-a'] = {pagina: "solicitar-voice-mail-div.html", titulo: "Solicitar VoiceMail"}
