@@ -60,7 +60,7 @@
                     </ul>
                 </li>
             </ul>
-            
+
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                   <li class="">
@@ -150,6 +150,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/actions.js" type="text/javascript"></script>
     <script src="js/index.js" type="text/javascript"></script>
     <script src="js/plugins/js-cookie/src/js.cookie.js"></script>
 
@@ -183,11 +184,20 @@
         #paisNuevoServicio
         */
 
-        $("#modalNuevoServicio button").click(function(){
-          $("#container-fluid").load(mapPagesLinks[$("#servicioSelect option:selected").attr("id")].pagina, cargarTraerDatosRow);
+        $("#modalNuevoServicio .btn-success").click(function(){
+          var serviceRequested = mapPagesLinks[$("#servicioSelect option:selected").attr("id")];
+          $("#container-fluid").load(serviceRequested.pagina, function(){
+              cargarTraerDatosRow(serviceRequested.actionOnLoad);
+          });
           $("#modalNuevoServicio").modal('hide');
           return false;
         });
+
+        $("#modalNuevoServicio .btn-default").click(function(){
+          $("#modalNuevoServicio").modal('hide');
+          return false;
+        });
+
       });
 
       $("#logoutButton").click(function(){
@@ -197,17 +207,19 @@
       });
 
 
-      function cargarTraerDatosRow(){
+      function cargarTraerDatosRow(onloadFunction){
         $("#rowTraerDatos").load("traer-datos-div.html",function(){
           $("#traerDatosButton").click(function(){
             /*Cambiarlo por una consulta a la base de datos*/
-            $('#nombreUsuarioEnAlta span').text("Lucas")
-            $('#idLotusNoteEnAlta span').text("123123")
-            $('#departamentoEnAlta span').text("Finanzas")
-            $('#gerenteEnAlta span').text("Hernan")
-            $('#gerenteNivel1EnAlta span').text("Patricia")
-            $('#gerenteNivel2EnAlta span').text("Gustavo")
+            $('#nombreUsuarioEnAlta span').text("Lucas");
+            $('#idLotusNoteEnAlta span').text("123123");
+            $('#departamentoEnAlta span').text("Finanzas");
+            $('#gerenteEnAlta span').text("Hernan");
+            $('#gerenteNivel1EnAlta span').text("Patricia");
+            $('#gerenteNivel2EnAlta span').text("Gustavo");
+            onloadFunction();
           });
+
         });
       }
 

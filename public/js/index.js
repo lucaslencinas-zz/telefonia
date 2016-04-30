@@ -2,33 +2,31 @@
 var mapPagesLinks = [];
 
 /*
-solicitudesAprobadas-a
-solicitudesRechazadas-a
-solicitudesEsperando-a
-altaInterno-a
-altaLineaAnalogica-a
-altaCallForwardings-a
-altaHuntGroup-a
-altaPickupGroup-a
-altaCodigoFAC-a
-altaCodigoCMC-a
-delegar-a
-serviciosAprobados-a
-serviciosRechazados-a
-serviciosEsperando-a
-solicitar-voice-mail-a
-solicitar-aparato-a
-cambio-de-discado-a
-reset-password-a
-re-asignar-a
-dar-de-baja-a
+  solicitudesAprobadas-a
+  solicitudesRechazadas-a
+  solicitudesEsperando-a
+  altaInterno-a
+  altaLineaAnalogica-a
+  altaCallForwardings-a
+  altaHuntGroup-a
+  altaPickupGroup-a
+  altaCodigoFAC-a
+  altaCodigoCMC-a
+  delegar-a
+  serviciosAprobados-a
+  serviciosRechazados-a
+  serviciosEsperando-a
+  solicitar-voice-mail-a
+  solicitar-aparato-a
+  cambio-de-discado-a
+  reset-password-a
+  re-asignar-a
+  dar-de-baja-a
 revalidar-a
 
 */
 
-
-
-mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", titulo: "Alta Interno/extension"}
+mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", titulo: "Alta Interno/extension", actionOnLoad: fillDefaultFields}
 mapPagesLinks['altaLineaAnalogica-a'] = {pagina: "alta-linea-analogica-div.html", titulo: "Alta Linea analogica"}
 
 mapPagesLinks['altaCallForwardings-a'] = {pagina: "alta-call-forwarding-div.html", titulo: "Alta Call Forwarding"}
