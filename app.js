@@ -9,32 +9,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var logins = require('./routes/logins')
 
-//----------------------------
-
-
-var mysql = require('mysql');
-var pool  = mysql.createPool({
-  connectionLimit : 5,
-  host     : 'us-cdbr-iron-east-03.cleardb.net',
-  user     : 'b907d8d6e3ab57',
-  password : '06e49fb8',
-  database : 'heroku_74c23f2458ff8ba'
-});
-
-pool.getConnection(function(err, connection) {
-  // Use the connection
-  connection.query( 'SELECT * from empleados', function(err, rows) {
-    // Always release the connection back to the pool after the (last) query.
-    if (err) throw err;
-    console.log('El nombre del usuario es: ', rows[0].name);
-    console.log('Toda la primera fila es: ', rows[0]);
-    connection.release();
-
-    // Don't use the connection here, it has been returned to the pool.
-  });
-});
-//--------------------------
-
 var app = express();
 
 // view engine setup
@@ -83,6 +57,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

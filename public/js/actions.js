@@ -24,4 +24,8 @@ function fillDefaultFields(){
       text: building
     }));
   });
+
+  $("#altaInterno-row button").click(function(){
+    alert("Todavia no se pueden cargar solicitudes");
+  });
 }
