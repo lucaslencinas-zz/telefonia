@@ -13,3 +13,10 @@ exports.getConnection = function(callback) {
         callback(err, connection);
     });
 };
+
+exports.buildAltaInternoQueryString = function(pedido) {
+  var query = "INSERT INTO altainterno (idIBM, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion)";
+  query += " VALUES (" + pedido.idIBM + ",'"  + pedido.nombre + "','"  + pedido.apellido + "','"  + pedido.pais  + "','"  + 'pendiente' + "','"  +  pedido.gerente1 + "','";
+  query +=  pedido.gerente2 + "','"  + pedido.edificio + "','"  + pedido.modulo + "',"  + pedido.interno + ",'"  + (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','"  + pedido.justificacion + "')";
+  return query;
+};
