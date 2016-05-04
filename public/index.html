@@ -169,16 +169,22 @@
           Cookies.set('userType', Cookies.get('userType'));
           alert("Usted se ha logueado como: " + Cookies.get('userType'));
           $("#dropdownNombreUsuario").text(Cookies.get('usuario'));
-          $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina/*, cargarTraerDatosRow*/);
+          $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
+            loadUserServices("servicios-a");
+          });
 
           $(".side-nav a").click(function(){
-            $("#container-fluid").load(mapPagesLinks[$(this).attr("id")].pagina/*, cargarTraerDatosRow*/);
-            $("#modalNuevoServicio").modal('hide');
+            $("#container-fluid").load(mapPagesLinks[$(this).attr("id")].pagina,function(){
+              loadUserServices($(this).attr("id"));
+            });
             return false;
-          })
+          });
         }
-
       });
+
+      function loadUserServices(servicesType){
+        console.log("pedir a la base de datos los servicios del usuairo actual: " + servicesType);
+      }
 
       $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
         /*
