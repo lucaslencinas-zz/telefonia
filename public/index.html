@@ -167,7 +167,7 @@
           Cookies.set('apellido', Cookies.get('apellido'));
           Cookies.set('idIBM', Cookies.get('idIBM'));
           Cookies.set('userType', Cookies.get('userType'));
-          alert("Usted se ha logueado como: " + Cookies.get('userType'));
+          //alert("Usted se ha logueado como: " + Cookies.get('userType'));
           $("#dropdownNombreUsuario").text(Cookies.get('usuario'));
           $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
             loadUserServices("servicios-a");
@@ -222,15 +222,17 @@
 
       function cargarTraerDatosRow(onloadFunction){
         $("#rowTraerDatos").load("traer-datos-div.html",function(){
-          $("#traerDatosButton").click(function(){
-            /*Cambiarlo por una consulta a la base de datos*/
-            $('#nombreUsuarioEnAlta span').text("Lucas");
-            $('#idLotusNoteEnAlta span').text("123123");
-            $('#departamentoEnAlta span').text("Finanzas");
-            $('#gerenteEnAlta span').text("Hernan");
-            $('#gerenteNivel1EnAlta span').text("Patricia");
-            $('#gerenteNivel2EnAlta span').text("Gustavo");
-            onloadFunction();
+            $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
+            $("#traerDatosButton").click(function(){
+              /*Cambiarlo por una consulta a la base de datos*/
+              $('#nombreUsuarioEnAlta span').text("Lucas");
+              $('#idLotusNoteEnAlta span').text("123123");
+              $('#departamentoEnAlta span').text("Finanzas");
+              $('#gerenteEnAlta span').text("Hernan");
+              $('#gerente1EnAlta span').text("Patricia");
+              $('#gerente2EnAlta span').text("Gustavo");
+              $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
+              onloadFunction();
           });
 
         });

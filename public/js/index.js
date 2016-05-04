@@ -26,7 +26,7 @@ revalidar-a
 
 */
 
-mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", actionOnLoad: fillDefaultFields}
+mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", actionOnLoad: setAltaInternoBehaviour}
 mapPagesLinks['altaLineaAnalogica-a'] = {pagina: "alta-linea-analogica-div.html"}
 
 mapPagesLinks['altaCallForwardings-a'] = {pagina: "alta-call-forwarding-div.html"}

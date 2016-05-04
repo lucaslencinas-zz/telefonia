@@ -14,7 +14,7 @@ mapCountryBuildings['Ecuador'] = {buildings:['Quito', 'Guayaquil']};
 
 /*A couple of functions to execute when loading the specific form for each of them*/
 
-function fillDefaultFields(){
+function setAltaInternoBehaviour(){
 
   var countryChoosen = $("#selectPais option:selected").attr("id");
   $('#selectEdificio').find('option').remove().end();
@@ -27,9 +27,11 @@ function fillDefaultFields(){
 
   $("#altaInterno-row button").click(function(){
     var data = {};
+    /**
     data.nombre = "lucas";
     data.apellido = "lencinas";
     data.idIBM = 999999;
+    **/
     data.pais = $("#selectPais option:selected").attr("id");
     data.edificio = $("#selectEdificio option:selected").attr("id");
     data.modulo = $('input[name=textModulo]').val();
@@ -38,11 +40,10 @@ function fillDefaultFields(){
     data.requiereVoiceMail = $('input[name=checkboxVoiceMail]').is(":checked");
     data.requiereAparato = $('input[name=checkboxAparato]').is(":checked");
     data.nombre = $('#nombreUsuarioEnAlta span').text();
-    data.idLotusNote = $('#idLotusNoteEnAlta span').text();
+    data.idIBM = $('#idIBMEnAlta span').text();
     data.departamento = $('#departamentoEnAlta span').text();
-    data.gerente= $('#gerenteEnAlta span').text();
-    data.gerente1 = $('#gerenteNivel1EnAlta span').text();
-    data.gerente2 = $('#gerenteNivel2EnAlta span').text();
+    data.gerente1 = $('#gerente1EnAlta span').text();
+    data.gerente2 = $('#gerente2EnAlta span').text();
 
     $.ajax({
   		type: "POST",
