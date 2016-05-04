@@ -158,11 +158,16 @@
     <script type="text/javascript">
 
       $(function(){
-        if(Cookies.get('usuario') == undefined || Cookies.get('password') == undefined){
+        if(Cookies.get('idIBM') == undefined){
           location.href = "login.html";
         }else{
           Cookies.set('usuario', Cookies.get('usuario'));
-          Cookies.set('password', Cookies.get('password'));
+          Cookies.set('userType', Cookies.get('userType'));
+          Cookies.set('nombre', Cookies.get('nombre'));
+          Cookies.set('apellido', Cookies.get('apellido'));
+          Cookies.set('idIBM', Cookies.get('idIBM'));
+          Cookies.set('userType', Cookies.get('userType'));
+          alert("Usted se ha logueado como: " + Cookies.get('userType'));
           $("#dropdownNombreUsuario").text(Cookies.get('usuario'));
           $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina/*, cargarTraerDatosRow*/);
 
@@ -202,7 +207,9 @@
 
       $("#logoutButton").click(function(){
         Cookies.remove('usuario');
-        Cookies.remove('password');
+        Cookies.remove('nombre');
+        Cookies.remove('apellido');
+        Cookies.remove('idIBM');
         location.href = "login.html";
       });
 

@@ -28,8 +28,13 @@
       <input id="inputUsername" class="form-control" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox">
-      </div>
+      <label for="selectUserType" class="sr-only">Tipo de Usuario: </label>
+      <select class="form-control" name="selectUserType" id="selectUserType">
+        <option id="common">Comun</option>
+        <option id="admin">Administrador</option>
+        <option id="telefonia">Telefonia</option>
+        <!--<option>Manager</option>-->
+      </select>
       <button class="btn btn-lg btn-primary btn-block" id="loginButton">Log in</button>
     </div>
 
@@ -44,15 +49,19 @@
   <script src="js/plugins/js-cookie/src/js.cookie.js"></script>
 
   <script type="text/javascript">
-  var usuario,pass;
+  var usuario,pass,type;
 
   $(function() {
-    if(Cookies.get('usuario') == undefined || Cookies.get('password') == undefined){
+    if(Cookies.get('idIBM') == undefined){
       /*No esta logueado*/
     }else{
       /*La renuevo*/
       Cookies.set('usuario', Cookies.get('usuario'));
-      Cookies.set('password', Cookies.get('password'));
+      Cookies.set('userType', Cookies.get('userType'));
+      Cookies.set('nombre', Cookies.get('nombre'));
+      Cookies.set('apellido', Cookies.get('apellido'));
+      Cookies.set('idIBM', Cookies.get('idIBM'));
+      Cookies.set('userType', Cookies.get('userType'));
       location.href="index.html";
     }
   });
@@ -60,16 +69,40 @@
   $("#loginButton").click(function(){
     usuario=$("#inputUsername").val();
     pass=$("#inputPassword").val();
-    $.post("/login",{usuario:usuario,password:pass},function(data){
-      if(data.validUser){
+    type=$("#selectUserType option:selected").attr("id");
+
+    /*
+    Hacer un GET a esto:
+    http://private-3cf3f-telefoniaibm.apiary-mock.com/users/admin
+    */
+
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      data: JSON.stringify({usuario:usuario,password:pass}),
+      url: "http://private-3cf3f-telefoniaibm.apiary-mock.com/users/" + type,
+      success: function (response) {
+        console.log(JSON.stringify(response));
         Cookies.set('usuario', usuario);
-        Cookies.set('password', pass);
+        Cookies.set('nombre', response.nombre);
+        Cookies.set('apellido', response.apellido);
+        Cookies.set('idIBM', response.idIBM);
+        Cookies.set('userType', type);
         location.href="index.html";
-      }else{
-        /*No es un usuario valido, todavia no hay accion para eso*/
-        alert("Usuario no encontrado. Intente de nuevo");
-      }
+      },
+      complete:function (){
+        console.log("complete");
+      },
+      error: function(){
+        console.log("error");
+      }/*,
+      statusCode: {
+        409: function () {
+            alerta("Hubo un error al grabar la rampa en la base de datos.");
+        }
+      }*/
     });
+
   });
 
   </script>
