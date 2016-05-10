@@ -87,6 +87,9 @@ mapPagesLinks['dar-de-baja-a'] = {pagina: "dar-de-baja-div.html"}
 
 mapPagesLinks['revalidar-a'] = {pagina: "revalidar-div.html"}
 
+
+
 function abrirModalDeTicket(nroTicket){
-  alert("Abrir el modal del ticket: " + nroTicket);
+  alert("Abrir el modal del ticket: " + nroTicket + ". Traer todos los datos dl ticket de la base de datos");
 };
+

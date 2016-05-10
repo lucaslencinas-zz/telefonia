@@ -192,30 +192,60 @@
         if(servicesType == "servicios-a")
           urlService = "todos";
 
-/*
+
         $.ajax({
           type: "GET",
           contentType: "application/json",
           url: "/servicios/" + urlService + "/" + Cookies.get('idIBM'),
           success: function (response) {
             console.log(JSON.stringify(response));
-            Cookies.set('nombre', response.nombre);
-            Cookies.set('apellido', response.apellido);
-            Cookies.set('idIBM', response.idIBM);
+      				/*response deberia tener:
+              	idIBM, nombre, apellido, pais, estado, 
+      					fManager, sManager, edificio, piso, 
+      					intReferencia, aparato, voicemail, justificacion
+      				*/
+			       	renderServiceOnTable(response);
+
           },
           complete:function (){
             console.log("complete");
           },
           error: function(){
             console.log("error");
-          }/*,
-          statusCode: {
-            409: function () {
-            }
-          }*/
-//        });
-
+			      alert("Hubo un error en el servidor");
+          }
+		    });
       }
+      
+      /*
+			servicios deberia tener: 
+			idIBM, ticket, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion
+			*/
+			function renderServiceOnTable(servicios){
+				/* Columnas: Nro Ticket FechaInicio	Solicitud	Tipo	Estado */
+				var stringFila;
+				/*
+				var fila = {idIBM: "asd", ticket: "123", nombre: "asda", apellido: "asda", pais: "asda", estado: "asda", 
+							fManager: "asda", sManager: "asda", edificio: "asda", piso: "asda", fechaCreacion: "2015 06-50-40",
+							intReferencia: "asda", aparato: "asda", voicemail: "asda", justificacion: "asda"
+				};
+				*/
+				servicios.forEach(function(servicio, index, array){
+					stringFila = "<tr>";
+					stringFila += "<tr>";
+					stringFila += "<th scope='row'><a onclick='abrirModalDeTicket(" + servicio.ticket + ");'>" + servicio.ticket + "</a></th>";
+					stringFila += "<td>" + servicio.fechaCreacion + "</td>";
+					stringFila += "<td>" + "Alta Interno" + "</td>";
+					stringFila += "<td>" + "Alta" + "</td>";
+					stringFila += "<td>" + servicio.estado + "</td>";
+					stringFila += "</tr>";
+					
+					$("table tbody").append(stringFila);
+				});
+			}
+      
+      
+      
 
       $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
         /*
