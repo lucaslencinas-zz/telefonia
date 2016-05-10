@@ -161,21 +161,19 @@
         if(Cookies.get('idIBM') == undefined){
           location.href = "login.html";
         }else{
-          Cookies.set('usuario', Cookies.get('usuario'));
-          Cookies.set('userType', Cookies.get('userType'));
           Cookies.set('nombre', Cookies.get('nombre'));
           Cookies.set('apellido', Cookies.get('apellido'));
           Cookies.set('idIBM', Cookies.get('idIBM'));
-          Cookies.set('userType', Cookies.get('userType'));
           //alert("Usted se ha logueado como: " + Cookies.get('userType'));
-          $("#dropdownNombreUsuario").text(Cookies.get('usuario'));
+          $("#dropdownNombreUsuario").text(Cookies.get('nombre'));
           $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
             loadUserServices("servicios-a");
           });
 
           $(".side-nav a").click(function(){
-            $("#container-fluid").load(mapPagesLinks[$(this).attr("id")].pagina,function(){
-              loadUserServices($(this).attr("id"));
+            var servicesTypes = $(this).attr("id");
+            $("#container-fluid").load(mapPagesLinks[servicesTypes].pagina,function(){
+              loadUserServices(servicesTypes);
             });
             return false;
           });
@@ -184,6 +182,39 @@
 
       function loadUserServices(servicesType){
         console.log("pedir a la base de datos los servicios del usuairo actual: " + servicesType);
+        var urlService = "";
+        if(servicesType == "servicios-aprobados-a")
+          urlService = "aprobados";
+        if(servicesType == "servicios-pendientes-a")
+          urlService = "pendientes";
+        if(servicesType == "servicios-rechazados-a")
+          urlService = "rechazados";
+        if(servicesType == "servicios-a")
+          urlService = "todos";
+
+/*
+        $.ajax({
+          type: "GET",
+          contentType: "application/json",
+          url: "/servicios/" + urlService + "/" + Cookies.get('idIBM'),
+          success: function (response) {
+            console.log(JSON.stringify(response));
+            Cookies.set('nombre', response.nombre);
+            Cookies.set('apellido', response.apellido);
+            Cookies.set('idIBM', response.idIBM);
+          },
+          complete:function (){
+            console.log("complete");
+          },
+          error: function(){
+            console.log("error");
+          }/*,
+          statusCode: {
+            409: function () {
+            }
+          }*/
+//        });
+
       }
 
       $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
@@ -212,7 +243,6 @@
       });
 
       $("#logoutButton").click(function(){
-        Cookies.remove('usuario');
         Cookies.remove('nombre');
         Cookies.remove('apellido');
         Cookies.remove('idIBM');

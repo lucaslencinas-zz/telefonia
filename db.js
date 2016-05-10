@@ -20,3 +20,20 @@ exports.buildAltaInternoQueryString = function(pedido) {
   query +=  pedido.gerente2 + "','"  + pedido.edificio + "','"  + pedido.modulo + "',"  + pedido.interno + ",'"  + (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','"  + pedido.justificacion + "')";
   return query;
 };
+
+
+exports.buildIbmLoginQueryString = function(pedido) {
+  var query = "SELECT  idIBM, nombre, apellido, pais, idFManager, idSManager, departamento";
+  query += " FROM ibm_data ";
+  query +=  "WHERE (idIBM = '" + pedido.idIBM + "' AND password = '" + pedido.password + "')";
+  console.log(query);
+  return query;
+};
+
+exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuario){
+  /*
+  Armar la cosulta a las multiples tablas de servicios de usuario
+  Por ahora podria hacerla solo para las altas de interno
+  */
+  return "";
+};

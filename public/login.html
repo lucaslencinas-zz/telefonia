@@ -30,14 +30,6 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-      <label for="selectUserType" class="sr-only">Tipo de Usuario: </label>
-      <select class="form-control" name="selectUserType" id="selectUserType">
-        <option id="common">Comun</option>
-        <option id="admin">Administrador</option>
-        <option id="telefonia">Telefonia</option>
-        <!--<option>Manager</option>-->
-      </select><br>
-
       <button class="btn btn-lg btn-primary btn-block" id="loginButton">Log in</button>
     </div>
 
@@ -52,19 +44,16 @@
   <script src="js/plugins/js-cookie/src/js.cookie.js"></script>
 
   <script type="text/javascript">
-  var usuario,pass,type;
+  var usuario,pass;
 
   $(function() {
     if(Cookies.get('idIBM') == undefined){
       /*No esta logueado*/
     }else{
       /*La renuevo*/
-      Cookies.set('usuario', Cookies.get('usuario'));
-      Cookies.set('userType', Cookies.get('userType'));
       Cookies.set('nombre', Cookies.get('nombre'));
       Cookies.set('apellido', Cookies.get('apellido'));
       Cookies.set('idIBM', Cookies.get('idIBM'));
-      Cookies.set('userType', Cookies.get('userType'));
       location.href="index.html";
     }
   });
@@ -72,25 +61,17 @@
   $("#loginButton").click(function(){
     usuario=$("#inputUsername").val();
     pass=$("#inputPassword").val();
-    type=$("#selectUserType option:selected").attr("id");
-
-    /*
-    Hacer un GET a esto:
-    http://private-3cf3f-telefoniaibm.apiary-mock.com/users/admin
-    */
 
     $.ajax({
-      type: "GET",
+      type: "POST",
       contentType: "application/json",
-      data: JSON.stringify({usuario:usuario,password:pass}),
-      url: "http://private-3cf3f-telefoniaibm.apiary-mock.com/users/" + type,
+      data: JSON.stringify({idIBM:usuario,password:pass}),
+      url: "/ibmLogin",
       success: function (response) {
         console.log(JSON.stringify(response));
-        Cookies.set('usuario', usuario);
         Cookies.set('nombre', response.nombre);
         Cookies.set('apellido', response.apellido);
         Cookies.set('idIBM', response.idIBM);
-        Cookies.set('userType', type);
         location.href="index.html";
       },
       complete:function (){
