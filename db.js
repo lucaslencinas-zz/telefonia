@@ -31,9 +31,17 @@ exports.buildIbmLoginQueryString = function(pedido) {
 };
 
 exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuario){
-  /*
-  Armar la cosulta a las multiples tablas de servicios de usuario
-  Por ahora podria hacerla solo para las altas de interno
-  */
-  return "";
+	var typesWhereClause = {
+			"aprobados":"AND estado = 'aprobado')",
+			"pendientes":"AND (estado = 'pendienteTelefonia' OR estado = 'pendienteGerente'))",
+			"rechazados":"AND estado = 'rechazado')",
+			"todos": ")"
+		};
+
+	var query = "SELECT idIBM, nombre, apellido, pais, ticket, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  query += "FROM  altainterno ";
+  query += "WHERE (idIBM = '" + idUsuario + "' ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
+	query += typesWhereClause[tipoDeServicio];
+
+  return query;
 };

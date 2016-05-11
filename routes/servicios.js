@@ -37,23 +37,27 @@ router.post('/', function(req, res) {
 
 });
 
+
 router.get('/:tipoDeServicio/:idUsuario', function(req, res, next) {
   console.log('Adentro de GET /servicios/' + req.params.tipoDeServicio  + "/" + req.params.idUsuario );
-/*
+
   db.getConnection(function(err, connection){
     connection.query( db.buildGetServiciosDeUsuarioQueryString(req.params.tipoDeServicio, req.params.idUsuario), function(err, rows) {
       if (err) {
         throw err;
       }
       res.json(rows);
+			/*rows tiene:
+			idIBM, nombre, apellido, pais, ticket, estado, fManager, sManager, edificio, piso,
+      intReferencia, aparato, voicemail, justificacion
+			*/
       connection.release();
       // Don't use the connection here, it has been returned to the pool.
     });
 
   });
-  */
+
   res.send('respond with a resource');
 });
-
 
 module.exports = router;
