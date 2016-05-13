@@ -15,9 +15,10 @@ exports.getConnection = function(callback) {
 };
 
 exports.buildAltaInternoQueryString = function(pedido) {
-  var query = "INSERT INTO altainterno (idIBM, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion)";
-  query += " VALUES (" + pedido.idIBM + ",'"  + pedido.nombre + "','"  + pedido.apellido + "','"  + pedido.pais  + "','"  + 'pendiente' + "','"  +  pedido.gerente1 + "','";
-  query +=  pedido.gerente2 + "','"  + pedido.edificio + "','"  + pedido.modulo + "',"  + pedido.interno + ",'"  + (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','"  + pedido.justificacion + "')";
+  var query = "INSERT INTO altainterno (idIBM, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion)";
+  query += " VALUES ('" + pedido.idIBM + "','"  + pedido.nombre + "','"  + pedido.apellido + "','"  + pedido.pais  + "','"  + 'pendienteGerente' + "','"  +  pedido.gerente1 + "','";
+  query +=  pedido.gerente2 + "','"  + pedido.edificio + "','"  + pedido.modulo + "','" + pedido.departamento + "',"  + pedido.interno + ",'"  + (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','"  + pedido.justificacion + "')";
+  console.log(query);
   return query;
 };
 
@@ -42,6 +43,6 @@ exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuar
   query += "FROM  altainterno ";
   query += "WHERE (idIBM = '" + idUsuario + "' ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
 	query += typesWhereClause[tipoDeServicio];
-
+  console.log(query);
   return query;
 };

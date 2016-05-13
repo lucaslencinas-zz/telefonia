@@ -192,18 +192,18 @@
         if(servicesType == "servicios-a")
           urlService = "todos";
 
-
+/*
         $.ajax({
           type: "GET",
           contentType: "application/json",
           url: "/servicios/" + urlService + "/" + Cookies.get('idIBM'),
           success: function (response) {
             console.log(JSON.stringify(response));
-      				/*response deberia tener:
-              	idIBM, nombre, apellido, pais, estado, 
-      					fManager, sManager, edificio, piso, 
-      					intReferencia, aparato, voicemail, justificacion
-      				*/
+      				//response deberia tener:
+              //idIBM, nombre, apellido, pais, estado,
+      				//	fManager, sManager, edificio, piso,
+      				//	intReferencia, aparato, voicemail, justificacion
+
 			       	renderServiceOnTable(response);
 
           },
@@ -215,17 +215,17 @@
 			      alert("Hubo un error en el servidor");
           }
 		    });
+        */
       }
-      
       /*
-			servicios deberia tener: 
+			servicios deberia tener:
 			idIBM, ticket, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion
 			*/
 			function renderServiceOnTable(servicios){
 				/* Columnas: Nro Ticket FechaInicio	Solicitud	Tipo	Estado */
 				var stringFila;
 				/*
-				var fila = {idIBM: "asd", ticket: "123", nombre: "asda", apellido: "asda", pais: "asda", estado: "asda", 
+				var fila = {idIBM: "asd", ticket: "123", nombre: "asda", apellido: "asda", pais: "asda", estado: "asda",
 							fManager: "asda", sManager: "asda", edificio: "asda", piso: "asda", fechaCreacion: "2015 06-50-40",
 							intReferencia: "asda", aparato: "asda", voicemail: "asda", justificacion: "asda"
 				};
@@ -239,13 +239,13 @@
 					stringFila += "<td>" + "Alta" + "</td>";
 					stringFila += "<td>" + servicio.estado + "</td>";
 					stringFila += "</tr>";
-					
+
 					$("table tbody").append(stringFila);
 				});
 			}
-      
-      
-      
+
+
+
 
       $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
         /*
@@ -286,9 +286,9 @@
             $("#traerDatosButton").click(function(){
               /*Cambiarlo por una consulta a la base de datos*/
               $('#nombreUsuarioEnAlta span').text("Lucas");
-              $('#idLotusNoteEnAlta span').text("123123");
+              $('#apellidoUsuarioEnAlta span').text("Lencinas");
+              $('#idIBMEnAlta span').text("lucas1");
               $('#departamentoEnAlta span').text("Finanzas");
-              $('#gerenteEnAlta span').text("Hernan");
               $('#gerente1EnAlta span').text("Patricia");
               $('#gerente2EnAlta span').text("Gustavo");
               $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
