@@ -15,12 +15,7 @@ router.post('/', function(req, res, next) {
         throw err;
       }
       console.log('El idIBM es: ', rows[0].idIBM);
-      console.log('El nombre es: ', rows[0].nombre);
-      console.log('El apellido es: ', rows[0].apellido);
-      console.log('El pais es: ', rows[0].pais);
-      console.log('El idFManager es: ', rows[0].idFManager);
-      console.log('El idSManager es: ', rows[0].idSManager);
-      console.log('El deparamento es: ', rows[0].departamento);
+      console.log('El fullName es: ', rows[0].fullName);
       res.json(rows[0]);
       connection.release();
       // Don't use the connection here, it has been returned to the pool.

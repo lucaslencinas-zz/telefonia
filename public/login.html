@@ -51,8 +51,7 @@
       /*No esta logueado*/
     }else{
       /*La renuevo*/
-      Cookies.set('nombre', Cookies.get('nombre'));
-      Cookies.set('apellido', Cookies.get('apellido'));
+      Cookies.set('fullName', Cookies.get('fullName'));
       Cookies.set('idIBM', Cookies.get('idIBM'));
       location.href="index.html";
     }
@@ -69,8 +68,7 @@
       url: "/ibmLogin",
       success: function (response) {
         console.log(JSON.stringify(response));
-        Cookies.set('nombre', response.nombre);
-        Cookies.set('apellido', response.apellido);
+        Cookies.set('fullName', response.fullName);
         Cookies.set('idIBM', response.idIBM);
         location.href="index.html";
       },

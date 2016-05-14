@@ -15,16 +15,17 @@ exports.getConnection = function(callback) {
 };
 
 exports.buildAltaInternoQueryString = function(pedido) {
-  var query = "INSERT INTO altainterno (idIBM, nombre, apellido, pais, estado, fManager, sManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion)";
-  query += " VALUES ('" + pedido.idIBM + "','"  + pedido.nombre + "','"  + pedido.apellido + "','"  + pedido.pais  + "','"  + 'pendienteGerente' + "','"  +  pedido.gerente1 + "','";
-  query +=  pedido.gerente2 + "','"  + pedido.edificio + "','"  + pedido.modulo + "','" + pedido.departamento + "',"  + pedido.interno + ",'"  + (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','"  + pedido.justificacion + "')";
+  var query = "INSERT INTO altainterno (idIBM, fullName, pais, estado, fManager, sManager, idFManager, idSManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion, fechaInicio, nivelAprobacion)";
+  query += " VALUES ('" + pedido.idIBM + "','"  + pedido.fullName + "','"  + pedido.pais  + "','"  + 'pendienteGerente' + "','"  +  pedido.gerente1 + "','";
+  query += pedido.gerente2 + "','" + pedido.idGerente1 + "','" + pedido.idGerente2 + "','" + pedido.edificio + "','"  + pedido.piso + "','" + pedido.departamento + "',"  + pedido.interno + ",'";
+  query += (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','" + pedido.justificacion + "', '" + pedido.fechaInicio + "', " + 1 + ")";
   console.log(query);
   return query;
 };
 
 
 exports.buildIbmLoginQueryString = function(pedido) {
-  var query = "SELECT  idIBM, nombre, apellido, pais, idFManager, idSManager, departamento";
+  var query = "SELECT  idIBM, fullName, pais, idFManager, idSManager, departamento";
   query += " FROM ibm_data ";
   query +=  "WHERE (idIBM = '" + pedido.idIBM + "' AND password = '" + pedido.password + "')";
   console.log(query);
@@ -34,12 +35,12 @@ exports.buildIbmLoginQueryString = function(pedido) {
 exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuario){
 	var typesWhereClause = {
 			"aprobados":"AND estado = 'aprobado')",
-			"pendientes":"AND (estado = 'pendienteTelefonia' OR estado = 'pendienteGerente'))",
+			"pendientes":"AND (estado = 'pendienteTelefoniaAdmin' OR estado = 'pendienteGerente' OR estado = 'pendienteTelefoniaLocal'))",
 			"rechazados":"AND estado = 'rechazado')",
 			"todos": ")"
 		};
 
-	var query = "SELECT idIBM, nombre, apellido, pais, ticket, estado, fManager, sManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
   query += "FROM  altainterno ";
   query += "WHERE (idIBM = '" + idUsuario + "' ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
 	query += typesWhereClause[tipoDeServicio];

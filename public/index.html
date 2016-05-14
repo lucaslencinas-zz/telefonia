@@ -150,6 +150,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/timeHelpers.js" type="text/javascript"></script>
     <script src="js/actions.js" type="text/javascript"></script>
     <script src="js/index.js" type="text/javascript"></script>
     <script src="js/plugins/js-cookie/src/js.cookie.js"></script>
@@ -161,11 +162,10 @@
         if(Cookies.get('idIBM') == undefined){
           location.href = "login.html";
         }else{
-          Cookies.set('nombre', Cookies.get('nombre'));
-          Cookies.set('apellido', Cookies.get('apellido'));
+          Cookies.set('fullName', Cookies.get('fullName'));
           Cookies.set('idIBM', Cookies.get('idIBM'));
           //alert("Usted se ha logueado como: " + Cookies.get('userType'));
-          $("#dropdownNombreUsuario").text(Cookies.get('nombre'));
+          $("#dropdownNombreUsuario").text(Cookies.get('fullName').split(" ")[0]);
           $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
             loadUserServices("servicios-a");
           });
@@ -192,7 +192,6 @@
         if(servicesType == "servicios-a")
           urlService = "todos";
 
-/*
         $.ajax({
           type: "GET",
           contentType: "application/json",
@@ -215,7 +214,6 @@
 			      alert("Hubo un error en el servidor");
           }
 		    });
-        */
       }
       /*
 			servicios deberia tener:
@@ -234,7 +232,7 @@
 					stringFila = "<tr>";
 					stringFila += "<tr>";
 					stringFila += "<th scope='row'><a onclick='abrirModalDeTicket(" + servicio.ticket + ");'>" + servicio.ticket + "</a></th>";
-					stringFila += "<td>" + servicio.fechaCreacion + "</td>";
+					stringFila += "<td>" + servicio.fechaInicio + "</td>";
 					stringFila += "<td>" + "Alta Interno" + "</td>";
 					stringFila += "<td>" + "Alta" + "</td>";
 					stringFila += "<td>" + servicio.estado + "</td>";
@@ -273,8 +271,7 @@
       });
 
       $("#logoutButton").click(function(){
-        Cookies.remove('nombre');
-        Cookies.remove('apellido');
+        Cookies.remove('fullName');
         Cookies.remove('idIBM');
         location.href = "login.html";
       });
@@ -285,12 +282,13 @@
             $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
             $("#traerDatosButton").click(function(){
               /*Cambiarlo por una consulta a la base de datos*/
-              $('#nombreUsuarioEnAlta span').text("Lucas");
-              $('#apellidoUsuarioEnAlta span').text("Lencinas");
+              $('#fullNameUsuarioEnAlta span').text("Lucas Lencinas");
               $('#idIBMEnAlta span').text("lucas1");
               $('#departamentoEnAlta span').text("Finanzas");
-              $('#gerente1EnAlta span').text("Patricia");
-              $('#gerente2EnAlta span').text("Gustavo");
+              $('#gerente1EnAlta span').text("Patricia Fernandez");
+              $('#gerente2EnAlta span').text("Hernan Dominguez");
+              $('#idGerente1EnAlta span').text("patricia1");
+              $('#idGerente2EnAlta span').text("hernan1");
               $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
               onloadFunction();
           });

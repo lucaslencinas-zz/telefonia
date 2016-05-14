@@ -1,7 +1,6 @@
 CREATE TABLE `altainterno` (
   `idIBM` varchar(20) DEFAULT NULL,
-  `nombre` varchar(20) DEFAULT NULL,
-  `apellido` varchar(20) DEFAULT NULL,
+  `fullName` varchar(40) DEFAULT NULL,
   `ticket` mediumint(9) NOT NULL AUTO_INCREMENT,
   `servicio` varchar(30) DEFAULT NULL,
   `nivelAprobacion` int(11) DEFAULT NULL,

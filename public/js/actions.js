@@ -34,7 +34,7 @@ function setAltaInternoBehaviour(){
     **/
     data.pais = $("#selectPais option:selected").attr("id");
     data.edificio = $("#selectEdificio option:selected").attr("id");
-    data.modulo = $('input[name=textModulo]').val();
+    data.piso = $('input[name=textPiso]').val();
     data.interno = $('input[name=textInterno]').val();
     data.justificacion = $('textarea[name=justificacion]').val();
     data.requiereVoiceMail = $('input[name=checkboxVoiceMail]').is(":checked");
@@ -44,6 +44,9 @@ function setAltaInternoBehaviour(){
     data.departamento = $('#departamentoEnAlta span').text();
     data.gerente1 = $('#gerente1EnAlta span').text();
     data.gerente2 = $('#gerente2EnAlta span').text();
+    data.idGerente1 = $('#idGerente1EnAlta span').text();
+    data.idGerente2 = $('#idGerente2EnAlta span').text();
+    data.fechaInicio = new Date().toMysqlFormat();
 
     $.ajax({
   		type: "POST",
