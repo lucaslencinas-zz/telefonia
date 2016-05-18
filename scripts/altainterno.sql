@@ -1,5 +1,5 @@
 CREATE TABLE `altainterno` (
-  `idIBM` varchar(20) DEFAULT NULL,
+  `idIBM` varchar(6) DEFAULT NULL,
   `fullName` varchar(40) DEFAULT NULL,
   `ticket` mediumint(9) NOT NULL AUTO_INCREMENT,
   `servicio` varchar(30) DEFAULT NULL,
@@ -8,9 +8,9 @@ CREATE TABLE `altainterno` (
   `pais` varchar(20) DEFAULT NULL,
   `departamento` varchar(20) DEFAULT NULL,
   `estado` varchar(30) DEFAULT NULL,
-  `idFManager` varchar(20) DEFAULT NULL,
+  `idFManager` varchar(6) DEFAULT NULL,
   `fManager` varchar(30) DEFAULT NULL,
-  `idSManager` varchar(20) DEFAULT NULL,
+  `idSManager` varchar(6) DEFAULT NULL,
   `sManager` varchar(30) DEFAULT NULL,
   `fechaInicio` datetime DEFAULT NULL,
   `fechaFManager` datetime DEFAULT NULL,
@@ -36,4 +36,4 @@ CREATE TABLE `altainterno` (
   `motivoTelefoniaAdmin` varchar(100) DEFAULT NULL,
   CONSTRAINT chk_estado CHECK (`estado` IN ('rechazado', 'pendienteGerente', 'pendienteTelefoniaLocal', 'pendienteTelefoniaAdmin', 'aprobado')),
   PRIMARY KEY (`ticket`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

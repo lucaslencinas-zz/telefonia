@@ -8,8 +8,8 @@ CREATE TABLE `empleados` (
   `fManager` varchar(30) DEFAULT NULL,
   `idSManager` varchar(6) DEFAULT NULL,
   `sManager` varchar(30) DEFAULT NULL,
-  `rol` varchar(10) DEFAULT NULL,
+  `rol` varchar(15) DEFAULT NULL,
   `pais` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idIBM`),
-  CONSTRAINT chk_rol CHECK (`rol` IN ('comun', 'admin', 'telefoniaAdmin', 'telefoniaLocal'))
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+  CONSTRAINT chk_rol CHECK (`rol` IN ('comun', 'telefoniaAdmin', 'telefoniaLocal'))
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
