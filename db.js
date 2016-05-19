@@ -25,7 +25,7 @@ exports.buildAltaInternoQueryString = function(pedido) {
 
 
 exports.buildIbmLoginQueryString = function(pedido) {
-  var query = "SELECT  idIBM, fullName, pais, idFManager, idSManager, departamento";
+  var query = "SELECT  idIBM, fullName, pais, idFManager, idSManager, departamento, isManager";
   query += " FROM ibm_data ";
   query +=  "WHERE (idIBM = '" + pedido.idIBM + "' AND password = '" + pedido.password + "')";
   console.log(query);
@@ -47,3 +47,19 @@ exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuar
   console.log(query);
   return query;
 };
+
+exports.buildAltaInternoLogQueryString = function(pedido, ticket){
+	var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+	query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + ticket + ", 'Alta de Interno', 'El usuario " + pedido.fullName + " ha creado el ticket nro " + ticket + "')";
+	query += ",('" + pedido.idIBM + "', '" + pedido.fullName + "', " + ticket + ", 'Cambio de Estado', 'El ticket nro " + ticket + " esta pendienteGerente')";
+  console.log(query);
+  return query;
+}
+
+exports.buildGetDataDeUsuarioQueryString = function(idIBM){
+  var query = "SELECT  idIBM, fullName, departamento, idFManager, fManager, idSManager, sManager";
+  query += " FROM ibm_data ";
+  query +=  "WHERE (idIBM = '" + idIBM + "')";
+  console.log(query);
+  return query;
+}

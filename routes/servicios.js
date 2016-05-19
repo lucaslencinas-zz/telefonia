@@ -11,10 +11,14 @@ router.post('/', function(req, res) {
       if (err) {
         throw err;
       }
-      console.log('Id del registro insertado: ', result.insertId);
-      res.json({"id": result.insertId});
-      connection.release();
-      // Don't use the connection here, it has been returned to the pool.
+			connection.query( db.buildAltaInternoLogQueryString(req.body, result.insertId), function(err2, result2) {
+        if (err2) {
+          throw err2;
+        }
+        console.log('Id del registro insertado: ', result.insertId);
+        res.json({"id": result.insertId});
+        connection.release();
+      });
     });
   });
 });

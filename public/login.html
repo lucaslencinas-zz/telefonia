@@ -53,6 +53,7 @@
       /*La renuevo*/
       Cookies.set('fullName', Cookies.get('fullName'));
       Cookies.set('idIBM', Cookies.get('idIBM'));
+      Cookies.set('isManager', Cookies.get('isManager'));
       location.href="index.html";
     }
   });
@@ -70,6 +71,7 @@
         console.log(JSON.stringify(response));
         Cookies.set('fullName', response.fullName);
         Cookies.set('idIBM', response.idIBM);
+        Cookies.set('isManager', response.isManager);
         location.href="index.html";
       },
       complete:function (){

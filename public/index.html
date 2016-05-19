@@ -164,6 +164,7 @@
         }else{
           Cookies.set('fullName', Cookies.get('fullName'));
           Cookies.set('idIBM', Cookies.get('idIBM'));
+          Cookies.set('isManager', Cookies.get('isManager'));
           //alert("Usted se ha logueado como: " + Cookies.get('userType'));
           $("#dropdownNombreUsuario").text(Cookies.get('fullName').split(" ")[0]);
           $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
@@ -198,11 +199,6 @@
           url: "/servicios/" + urlService + "/" + Cookies.get('idIBM'),
           success: function (response) {
             console.log(JSON.stringify(response));
-      				//response deberia tener:
-              //idIBM, nombre, apellido, pais, estado,
-      				//	fManager, sManager, edificio, piso,
-      				//	intReferencia, aparato, voicemail, justificacion
-
 			       	renderServiceOnTable(response);
 
           },
@@ -273,28 +269,49 @@
       $("#logoutButton").click(function(){
         Cookies.remove('fullName');
         Cookies.remove('idIBM');
+        Cookies.remove('isManager');
         location.href = "login.html";
       });
-
 
       function cargarTraerDatosRow(onloadFunction){
         $("#rowTraerDatos").load("traer-datos-div.html",function(){
             $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
             $("#traerDatosButton").click(function(){
-              /*Cambiarlo por una consulta a la base de datos*/
-              $('#fullNameUsuarioEnAlta span').text("Lucas Lencinas");
-              $('#idIBMEnAlta span').text("lucas1");
-              $('#departamentoEnAlta span').text("Finanzas");
-              $('#gerente1EnAlta span').text("Patricia Fernandez");
-              $('#gerente2EnAlta span').text("Hernan Dominguez");
-              $('#idGerente1EnAlta span').text("patricia1");
-              $('#idGerente2EnAlta span').text("hernan1");
-              $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
-              onloadFunction();
+							$.ajax({
+								type: "GET",
+								contentType: "application/json",
+								url: "/data/" + $('#nroEmpleado').val(),
+								success: function (response) {
+									console.log(JSON.stringify(response));
+										renderResponseOnTraerDatos(response, onloadFunction);
+								},
+								complete:function (){
+									console.log("complete");
+								},
+								error: function(){
+									console.log("error");
+									alert("Hubo un error en el servidor");
+								}
+							});
           });
-
         });
       }
+
+			function renderResponseOnTraerDatos(response, onLoadFunction){
+
+				$('#fullNameUsuarioEnAlta span').text(response[0].fullName);
+				$('#idIBMEnAlta span').text(response[0].idIBM);
+				$('#departamentoEnAlta span').text(response[0].departamento);
+				$('#gerente1EnAlta span').text(response[0].fManager);
+				$('#gerente2EnAlta span').text(response[0].sManager);
+				$('#idGerente1EnAlta span').text(response[0].idFManager);
+				$('#idGerente2EnAlta span').text(response[0].idSManager);
+				$('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
+				onLoadFunction();
+			}
+
+
+      /*------------ FIn NUEVO ---------------*/
 
     </script>
 
