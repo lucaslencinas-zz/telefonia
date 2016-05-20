@@ -120,7 +120,6 @@ function renderServiceOnTable(servicios){
 }
 
 
-
 function cargarTraerDatosRow(onLoadFunction){
   $("#rowTraerDatos").load("traer-datos-div.html",function(){
       $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
@@ -131,7 +130,15 @@ function cargarTraerDatosRow(onLoadFunction){
           url: "/data/" + $('#nroEmpleado').val(),
           success: function (response) {
             console.log(JSON.stringify(response));
-            habilitarForm(response,onLoadFunction);
+            if(response.result == "error"){
+              $("#traerDatosErrorMsg").html(response.value);
+              $("#nroEmpleado").css("border-color", "red");
+            }else{
+              $("#traerDatosErrorMsg").html("");
+              $("#nroEmpleado").css("border-color", "#ccc");
+
+              habilitarForm(response.value,onLoadFunction);
+            }
           },
           error: function(){
             console.log("error");
@@ -149,13 +156,13 @@ function habilitarForm(response, onLoadFunction){
 }
 
 function renderResponseOnTraerDatos(response){
-  $('#fullNameUsuarioEnAlta span').text(response[0].fullName);
-  $('#idIBMEnAlta span').text(response[0].idIBM);
-  $('#departamentoEnAlta span').text(response[0].departamento);
-  $('#gerente1EnAlta span').text(response[0].fManager);
-  $('#gerente2EnAlta span').text(response[0].sManager);
-  $('#idGerente1EnAlta span').text(response[0].idFManager);
-  $('#idGerente2EnAlta span').text(response[0].idSManager);
+  $('#fullNameUsuarioEnAlta span').text(response.fullName);
+  $('#idIBMEnAlta span').text(response.idIBM);
+  $('#departamentoEnAlta span').text(response.departamento);
+  $('#gerente1EnAlta span').text(response.fManager);
+  $('#gerente2EnAlta span').text(response.sManager);
+  $('#idGerente1EnAlta span').text(response.idFManager);
+  $('#idGerente2EnAlta span').text(response.idSManager);
 }
 
 

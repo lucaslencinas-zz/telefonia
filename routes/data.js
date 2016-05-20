@@ -11,7 +11,13 @@ router.get('/:idUsuario', function(req, res, next) {
       if (err) {
         throw err;
       }
-      res.json(rows);
+      if(rows.length == 0){
+        console.log("idIBM no encontrado");
+        res.json({result: "error", value: "id IBM no encontrado"});
+      }else{
+        console.log('Login Correcto');
+        res.json({result: "ok", value: rows[0] });
+      }
       connection.release();
       // Don't use the connection here, it has been returned to the pool.
     });
