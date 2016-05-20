@@ -16,6 +16,19 @@
     <!-- Custom styles for this template -->
     <link href="css/login.css" rel="stylesheet">
 
+    <style>
+    #errorMsg{
+      display: block;
+      width: 100%;
+      text-align: center;
+      color: red;
+    }
+
+    .form-signin *{
+      margin: 5px 0;
+    }
+    </style>
+
   </head>
 
   <body>
@@ -31,6 +44,7 @@
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
       <button class="btn btn-lg btn-primary btn-block" id="loginButton">Log in</button>
+      <div id="errorMsg"></div>
     </div>
 
   </div> <!-- /container -->
@@ -65,8 +79,13 @@
       url: "/ibmLogin",
       success: function (response) {
         console.log(JSON.stringify(response));
-        logIn(response);
-        location.href="index.html";
+        if(response.result == "error"){
+          $("#errorMsg").html(response.value);
+          $(".form-signin input").css("border-color", "red");
+        }else{
+          logIn(response);
+          location.href="index.html";
+        }
       },
       error: function(){
         console.log("error");
