@@ -55,6 +55,7 @@ function setAltaInternoBehaviour(){
   		url: "/servicios",
   		success: function (response) {
         alert(JSON.stringify(response));
+        location.reload();
   		},
   		complete:function (){
   			alert("complete");

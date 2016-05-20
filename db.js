@@ -25,9 +25,9 @@ exports.buildAltaInternoQueryString = function(pedido) {
 
 
 exports.buildIbmLoginQueryString = function(pedido) {
-  var query = "SELECT  idIBM, fullName, pais, idFManager, idSManager, departamento, isManager";
+  var query = "SELECT  mail, idIBM, fullName, pais, idFManager, idSManager, departamento, isManager";
   query += " FROM ibm_data ";
-  query +=  "WHERE (idIBM = '" + pedido.idIBM + "' AND password = '" + pedido.password + "')";
+  query +=  "WHERE (mail = '" + pedido.mail + "' AND password = '" + pedido.password + "')";
   console.log(query);
   return query;
 };

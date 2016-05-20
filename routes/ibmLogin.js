@@ -12,9 +12,13 @@ router.post('/', function(req, res, next) {
       if (err) {
         throw err;
       }
-      console.log('El idIBM es: ', rows[0].idIBM);
-      console.log('El fullName es: ', rows[0].fullName);
-      res.json(rows[0]);
+      if(rows.length == 0){
+        console.log("No se encontraron usuarios con ese id y pass");
+        res.json({result: "error", value: "Mail o Password Incorrecto/s"});
+      }else{
+        console.log('Login Correcto');
+        res.json({result: "ok", value: rows[0] });
+      }
       connection.release();
     });
 
