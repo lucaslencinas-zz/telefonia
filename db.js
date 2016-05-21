@@ -48,6 +48,23 @@ exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuar
   return query;
 };
 
+exports.buildGetServiciosDeManagerQueryString = function(tipoDeServicio, idUsuario){
+	var typesWhereClause = {
+			"aprobados":"AND estado = 'aprobado'",
+			"pendientes":"AND (estado = 'pendienteTelefoniaAdmin' OR estado = 'pendienteGerente' OR estado = 'pendienteTelefoniaLocal')",
+			"rechazados":"AND estado = 'rechazado'",
+			"todos": ""
+		};
+
+	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  query += "FROM  altainterno ";
+  query += "WHERE (idIBM = '" + idUsuario + "' OR idFManager = '" + idUsuario + "') ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
+	query += typesWhereClause[tipoDeServicio];
+  console.log(query);
+  return query;
+};
+
+
 exports.buildAltaInternoLogQueryString = function(pedido, ticket){
 	var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
 	query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + ticket + ", 'Alta de Interno', 'El usuario " + pedido.fullName + " ha creado el ticket nro " + ticket + "')";

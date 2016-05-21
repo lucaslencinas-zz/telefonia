@@ -148,25 +148,50 @@
 
     <!-- Large modal -->
 
-<div class="modal fade bs-example-modal-lg" id="modalTicketDescription" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Ticket description</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Aprobar</button>
-        <button type="button" class="btn btn-primary">Rechazar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <div class="modal fade bs-example-modal-lg" id="modalTicketDescription" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Ticket description</h4>
+          </div>
+          <div class="modal-body">
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="btnAprobarTicket">Aprobar</button>
+            <button type="button" class="btn btn-warning" id="btnRechazarTicket">Rechazar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
+
+    <div class="modal fade bs-example-modal-sm" id="modalRechazarTicketConfirmacion" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Rechazo de Ticket</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="motivoFManager" class="col-sm-4 control-label input-sm">Motivo: </label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control input-sm" id="motivoFManagerEnModal" rows="4"></textarea>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-primary" id="btnModalRechazar">Rechazar</button>
+              <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+            </div>
+        </div>
+      </div>
+    </div>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>

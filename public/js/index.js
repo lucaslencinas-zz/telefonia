@@ -29,6 +29,7 @@ $(function(){
   if(isLoggedIn()){
     refreshLogin();
     loadInitialPage();
+    loadButtonsFunctionalities();
   }else{
     location.href = "login.html";
   }
@@ -45,7 +46,31 @@ function loadInitialPage(){
     logOut();
     location.href = "login.html";
   });
+}
 
+function loadButtonsFunctionalities(){
+  $("#btnAprobarTicket").click(function(){
+    sendFManagerApproval();
+  });
+  $("#btnRechazarTicket").click(function(){
+    $('#modalRechazarTicketConfirmacion').modal('toggle');
+  });
+  $("#btnModalRechazar").click(function(){
+    sendFManagerDenial();
+  });
+}
+
+function sendFManagerDenial(){
+  /*ajax call*/
+  alert("hacer la llamada ajax");
+  $('#modalRechazarTicketConfirmacion').modal('toggle');
+  $('#modalTicketDescription').modal('toggle');
+}
+
+function sendFManagerApproval(){
+  /*ajax call*/
+  alert("hacer la llamada ajax");
+  $('#modalTicketDescription').modal('toggle');
 }
 
 function addModalNuevoServicio(){
@@ -90,11 +115,10 @@ function loadUserServices(servicesType){
   $.ajax({
     type: "GET",
     contentType: "application/json",
-    url: "/servicios/" + urlService + "/" + Cookies.get('idIBM'),
+    url: "/servicios/" + urlService + (Cookies.get("isManager") == "Y"? "/manager/":"/" ) + Cookies.get('idIBM'),
     success: function (response) {
       console.log(JSON.stringify(response));
         renderServiceOnTable(response);
-
     },
     error: function(){
       console.log("error");
@@ -109,6 +133,8 @@ function renderServiceOnTable(servicios){
     stringFila = "<tr>";
     stringFila += "<tr>";
     stringFila += "<th scope='row'><a onclick='abrirModalDeTicket(" + servicio.ticket + ");'>" + servicio.ticket + "</a></th>";
+    stringFila += "<td>" + servicio.fullName + "</td>";
+    stringFila += "<td>" + servicio.idIBM + "</td>";
     stringFila += "<td>" + servicio.fechaInicio + "</td>";
     stringFila += "<td>" + "Alta Interno" + "</td>";
     stringFila += "<td>" + "Alta" + "</td>";
@@ -214,6 +240,11 @@ function loadContentAltaInternoModal(info){
   $('#selectDiscado option[id="' + info.discado +'"]').prop("selected",true);
   $('#justificacion').val(info.justificacion);
 
+  if(!(Cookies.get("isManager") == "Y" && Cookies.get("idIBM") == info.idFManager)){
+    $(".modal-footer .btn-success").remove();
+    $(".modal-footer .btn-warning").remove();
+  }
+
   var countryChoosen = $("#selectPais option:selected").attr("id");
   $('#selectEdificio').find('option').remove().end();
   mapCountryBuildings[countryChoosen].buildings.forEach(function(building, index, array){
@@ -231,7 +262,4 @@ function loadContentAltaInternoModal(info){
     }
   });
 
-/*
-"motivoFManager":null,
-*/
 }
