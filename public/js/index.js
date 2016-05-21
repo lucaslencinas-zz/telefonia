@@ -168,5 +168,70 @@ function renderResponseOnTraerDatos(response){
 
 
 function abrirModalDeTicket(nroTicket){
-  alert("Abrir el modal del ticket: " + nroTicket + ". Traer todos los datos dl ticket de la base de datos");
-};
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: "/servicios/" + nroTicket,
+    success: function(response){
+      console.log("response: " + JSON.stringify(response));
+      if(response.result == "error"){
+        alert("Hubo un error con el ticket: " + response.value);
+      }else{
+        $('#modalTicketDescription').modal('toggle');
+        var modalBody = $("#modalTicketDescription .modal-body");
+        modalBody.load("modal-content-alta-interno.html", function(){
+          console.log("se cargo el modal, hay que llenarlo con los datos de la base");
+          loadContentAltaInternoModal(response.value);
+
+
+        });
+      }
+
+    }
+  });
+}
+
+function loadContentAltaInternoModal(info){
+
+
+  $('#selectPais option[id="' + info.pais +'"]').prop("selected",true);
+  $("#textIdIBM").val(info.idIBM);
+  $("#textFullName").val(info.fullName);
+  $("#textTicket").val(info.ticket);
+  $("#textEstado").val(info.estado);
+  $("#textServicio").val(info.servicio);
+  $("#textTipo").val(info.tipo);
+  $("#textIdFManager").val(info.idFManager);
+  $("#textFManager").val(info.fManager);
+  $("#textIdSManager").val(info.idSManager);
+  $("#textSManager").val(info.sManager);
+  $("#textFechaInicio").val(info.fechaInicio);
+  $("#textPiso").val(info.piso);
+  $("#textDepartamento").val(info.departamento);
+  $("#textInterno").val(info.intReferencia);
+  $('#checkboxAparato').prop('checked', (info.aparato == "SI"? true: false));
+  $('#checkboxVoiceMail').prop('checked', (info.voicemail == "SI"? true: false));
+  $('#selectDiscado option[id="' + info.discado +'"]').prop("selected",true);
+  $('#justificacion').val(info.justificacion);
+
+  var countryChoosen = $("#selectPais option:selected").attr("id");
+  $('#selectEdificio').find('option').remove().end();
+  mapCountryBuildings[countryChoosen].buildings.forEach(function(building, index, array){
+    if(building == info.edificio){
+      $('#selectEdificio').append($('<option>', {
+        id: building,
+        text: building,
+        selected: true
+      }));
+    }else{
+      $('#selectEdificio').append($('<option>', {
+        id: building,
+        text: building
+      }));
+    }
+  });
+
+/*
+"motivoFManager":null,
+*/
+}

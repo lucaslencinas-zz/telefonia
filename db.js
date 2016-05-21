@@ -15,10 +15,10 @@ exports.getConnection = function(callback) {
 };
 
 exports.buildAltaInternoQueryString = function(pedido) {
-  var query = "INSERT INTO altainterno (idIBM, fullName, pais, estado, fManager, sManager, idFManager, idSManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion, fechaInicio, nivelAprobacion)";
+  var query = "INSERT INTO altainterno (idIBM, fullName, pais, estado, fManager, sManager, idFManager, idSManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion, fechaInicio, nivelAprobacion, servicio, tipo, discado)";
   query += " VALUES ('" + pedido.idIBM + "','"  + pedido.fullName + "','"  + pedido.pais  + "','"  + 'pendienteGerente' + "','"  +  pedido.gerente1 + "','";
   query += pedido.gerente2 + "','" + pedido.idGerente1 + "','" + pedido.idGerente2 + "','" + pedido.edificio + "','"  + pedido.piso + "','" + pedido.departamento + "',"  + pedido.interno + ",'";
-  query += (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','" + pedido.justificacion + "', '" + pedido.fechaInicio + "', " + 1 + ")";
+  query += (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','" + pedido.justificacion + "', '" + pedido.fechaInicio + "', " + 1 + ", 'AltaInterno', 'Alta', '" + pedido.discado + "')";
   console.log(query);
   return query;
 };
@@ -60,6 +60,14 @@ exports.buildGetDataDeUsuarioQueryString = function(idIBM){
   var query = "SELECT  idIBM, fullName, departamento, idFManager, fManager, idSManager, sManager";
   query += " FROM ibm_data ";
   query +=  "WHERE (idIBM = '" + idIBM + "')";
+  console.log(query);
+  return query;
+}
+
+exports.buildGetTicketInfoQueryString = function(ticket){
+  var query = "SELECT * ";
+  query += "FROM  altainterno ";
+  query += "WHERE (ticket = " + ticket + ")";
   console.log(query);
   return query;
 }

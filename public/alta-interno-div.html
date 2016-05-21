@@ -1,92 +1,92 @@
 <!DOCTYPE html>
 
-    <!-- Page Heading -->
-    <div class="row" id="rowHeader">
-        <div class="col-lg-12">
-          <div class="col-lg-7">
+<!-- Page Heading -->
+<div class="row" id="rowHeader">
+    <div class="col-lg-12">
+        <div class="col-lg-7">
             <h1 class="page-header">
                 Solicitud de Alta de Interno
             </h1>
-          </div>
-
         </div>
-    </div>
-    <!-- /.row -->
 
-    <div class="row" id="rowTraerDatos">
     </div>
+</div>
+<!-- /.row -->
 
-    <div class="row" id="altaInterno-row">
-      <div class="panel panel-default">
+<div class="row" id="rowTraerDatos">
+</div>
+
+<div class="row" id="altaInterno-row">
+    <div class="panel panel-default">
         <div class="panel-body">
-          <div class="col-lg-8">
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label for="selectEdificio" class="col-sm-4 control-label input-sm">Edificio: </label>
-                <div class="col-sm-8">
-                  <select class="form-control input-sm" name="selectEdificio" id="selectEdificio">
-                    <!--Filled dinamically-->
-                  </select>
+            <div class="col-lg-8">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="selectEdificio" class="col-sm-4 control-label input-sm">Edificio: </label>
+                        <div class="col-sm-8">
+                            <select class="form-control input-sm" name="selectEdificio" id="selectEdificio">
+                                <!--Filled dinamically-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textPiso" class="col-sm-4 control-label input-sm">Modulo/Piso: </label>
+                        <div class="col-sm-8">
+                            <input class="form-control input-sm" name="textPiso">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="textInterno" class="col-sm-4 control-label input-sm">Interno de Referencia: </label>
+                        <div class="col-sm-8">
+                            <input class="form-control input-sm" name="textInterno">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="checkboxAparato"> Requiere Aparato:
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectDiscado" class="col-sm-4 control-label input-sm">Tipo de Discado: </label>
+                        <div class="col-sm-8">
+                            <select class="form-control input-sm" name="selectDiscado" id="selectDiscado">
+                                <option id="Interno">Interno</option>
+                                <option id="Local">Local</option>
+                                <option id="Celular">Celular</option>
+                                <option id="Nacional">Nacional</option>
+                                <option id="Internacional">Internacional</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <div class="checkbox ">
+                                <label>
+                                    <input type="checkbox" name="checkboxVoiceMail"> Requiere VoiceMail:
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="justificacion" class="col-sm-4 control-label input-sm">Justificacion: </label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control input-sm" name="justificacion" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button name="Submit" class="btn btn-success btn-sm">Submit</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="textPiso" class="col-sm-4 control-label input-sm">Modulo/Piso: </label>
-                <div class="col-sm-8">
-                  <input class="form-control input-sm" name="textPiso">
-                </input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="textInterno" class="col-sm-4 control-label input-sm">Interno de Referencia: </label>
-                <div class="col-sm-8">
-                  <input class="form-control input-sm" name="textInterno">
-                </input>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-8">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="checkboxAparato"> Requiere Aparato:
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="selectDiscado" class="col-sm-4 control-label input-sm">Tipo de Discado: </label>
-                <div class="col-sm-8">
-                  <select class="form-control input-sm" name="selectDiscado">
-                    <option>Interno</option>
-                    <option>Local</option>
-                    <option>Celular</option>
-                    <option>Nacional</option>
-                    <option>Internacional</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-8">
-                  <div class="checkbox ">
-                    <label>
-                      <input type="checkbox" name="checkboxVoiceMail"> Requiere VoiceMail:
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="justificacion" class="col-sm-4 control-label input-sm">Justificacion: </label>
-                <div class="col-sm-8">
-                  <textarea class="form-control input-sm" name="justificacion" rows="4"></textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-8">
-                  <button name="Submit" class="btn btn-success btn-sm">Submit</button>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    <!-- /.row -->
+</div>
+<!-- /.row -->

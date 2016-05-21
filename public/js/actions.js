@@ -39,6 +39,7 @@ function setAltaInternoBehaviour(){
     data.justificacion = $('textarea[name=justificacion]').val();
     data.requiereVoiceMail = $('input[name=checkboxVoiceMail]').is(":checked");
     data.requiereAparato = $('input[name=checkboxAparato]').is(":checked");
+    data.discado = $("#selectDiscado option:selected").attr("id");
     data.fullName = $('#fullNameUsuarioEnAlta span').text();
     data.idIBM = $('#idIBMEnAlta span').text();
     data.departamento = $('#departamentoEnAlta span').text();
