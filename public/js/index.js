@@ -61,16 +61,38 @@ function loadButtonsFunctionalities(){
 }
 
 function sendFManagerDenial(){
-  /*ajax call*/
-  alert("hacer la llamada ajax");
-  $('#modalRechazarTicketConfirmacion').modal('toggle');
-  $('#modalTicketDescription').modal('toggle');
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ticket: $("#textTicket").val(), idFManager: $("#textIdFManager").val(), fManager: $("#textFManager").val(), motivoFManager: $("#motivoFManagerEnModal").val(), fechaFManager: new Date().toMysqlFormat() }),
+    url: "/managers/rechazar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
 }
 
 function sendFManagerApproval(){
-  /*ajax call*/
-  alert("hacer la llamada ajax");
-  $('#modalTicketDescription').modal('toggle');
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ticket: $("#textTicket").val(), idFManager: $("#textIdFManager").val(), fManager: $("#textFManager").val(), fechaFManager: new Date().toMysqlFormat()}),
+    url: "/managers/aprobar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
 }
 
 function addModalNuevoServicio(){
@@ -238,8 +260,6 @@ function requestTicketLogs(ticket){
 }
 
 function loadContentAltaInternoModal(info){
-
-
   $('#selectPais option[id="' + info.pais +'"]').prop("selected",true);
   $("#textIdIBM").val(info.idIBM);
   $("#textFullName").val(info.fullName);
@@ -260,11 +280,15 @@ function loadContentAltaInternoModal(info){
   $('#selectDiscado option[id="' + info.discado +'"]').prop("selected",true);
   $('#justificacion').val(info.justificacion);
 
-  if(!(Cookies.get("isManager") == "Y" && Cookies.get("idIBM") == info.idFManager)){
-    $(".modal-footer .btn-success").remove();
-    $(".modal-footer .btn-warning").remove();
+  if(!(Cookies.get("isManager") == "Y" && Cookies.get("idIBM") == info.idFManager && info.estado == "pendienteGerente")){
+    $(".modal-footer .btn-success").hide();
+    $(".modal-footer .btn-warning").hide();
+    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
+  }else{
+    $(".modal-footer .btn-success").show();
+    $(".modal-footer .btn-warning").show();
+    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
   }
-
   var countryChoosen = $("#selectPais option:selected").attr("id");
   $('#selectEdificio').find('option').remove().end();
   mapCountryBuildings[countryChoosen].buildings.forEach(function(building, index, array){

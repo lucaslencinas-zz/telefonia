@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var managers = require('./routes/managers');
 var servicios = require('./routes/servicios')
 var ibmLogin = require('./routes/ibmLogin')
 var data = require('./routes/data')
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/managers', managers);
 app.use('/servicios', servicios)
 app.use('/ibmLogin', ibmLogin)
 app.use('/data', data)

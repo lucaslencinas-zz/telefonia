@@ -95,7 +95,6 @@ exports.buildGetServiciosDeUsuarioTelefoniaAdminQueryString = function(tipoDeSer
   return query;
 }
 
-
 exports.buildAltaInternoLogQueryString = function(pedido, ticket){
 	var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
 	query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + ticket + ", 'Alta de Interno', 'El usuario " + pedido.fullName + " ha creado el ticket nro " + ticket + "')";
@@ -132,6 +131,39 @@ exports.buildCheckAdminUserQueryString = function(idIBM){
   var query = "SELECT * ";
   query += "FROM  telefonia_admin ";
   query += "WHERE (idIBM = '" + idIBM + "')";
+  console.log(query);
+  return query;
+}
+
+
+
+exports.buildAprobacionManagerLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaLocal')";
+  console.log(query);
+  return query;
+}
+
+exports.buildAprobacionManagerQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'pendienteTelefoniaLocal'," + " fechaFManager = '" + pedido.fechaFManager + "' ";
+  query += "WHERE ticket = '" + pedido.ticket + "'";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoManagerLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaLocal')";
+  query += ",('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoManagerQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'rechazado'," + " fechaFManager = '" + pedido.fechaFManager + "', motivoFManager = '" + pedido.motivoFManager + "' ";
+  query += "WHERE ticket = '" + pedido.ticket + "'";
   console.log(query);
   return query;
 }
