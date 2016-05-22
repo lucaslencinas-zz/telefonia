@@ -118,7 +118,7 @@ function loadUserServices(servicesType){
     url: "/servicios/" + urlService + (Cookies.get("isManager") == "Y"? "/manager/":"/" ) + Cookies.get('idIBM'),
     success: function (response) {
       console.log(JSON.stringify(response));
-        renderServiceOnTable(response);
+      renderServiceOnTable(response.value);
     },
     error: function(){
       console.log("error");

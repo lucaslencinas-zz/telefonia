@@ -1,7 +1,7 @@
 
 /*Insert Examples in different tables*/
 
-INSERT INTO telefoniaAdmin (idIBM, fullName, pais, rol, mail)
+INSERT INTO telefonia_admin (idIBM, fullName, pais, rol, mail)
 VALUES 	(  "pabl11", "Pablo Lencinas", "Argentina", "telefoniaAdmin",  "plencinas@gmail.com"),
         (  "carl13", "Carlos Sanz", "Argentina", "telefoniaLocal", "csanz@gmail.com");
 
@@ -17,9 +17,8 @@ VALUES 	(  "lucas1", "lucas1", "Lucas Lencinas", "N", "Argentina", "diego4", "Di
         (  "maria9", "maria9", "Mariano Cimino", "N", "Argentina", "luis6", "Luis Gotfryd", "lgotfryd@gmail.com", "hern12", "Hernan Dominguez", "hdominguez@gmail.com", "finanzas", "mcimino@gmail.com"),
         (  "mart10", "mart10", "Martin Cornejo", "N", "Argentina", "luis6", "Luis Gotfryd", "lgotfryd@gmail.com", "hern12", "Hernan Dominguez", "hdominguez@gmail.com", "finanzas", "mcornejo@gmail.com"),
         (  "hern12", "hern12", "Hernan Dominguez", "Y",  "Argentina", null, null, null, null, null, null, "finanzas", "hdominguez@gmail.com"),
-        (  "pabl11", "pabl11", "Pablo Lencinas",  "Y", "Argentina", null, null, null, null, null, null, "finanzas", "plencinas@gmail.com"),
-        (  "carl13", "carl13", "Carlos Sanz",  "Y", "Argentina", null, null, null, null, null, null, "finanzas", "plencinas@gmail.com");
-
+        (  "pabl11", "pabl11", "Pablo Lencinas",  "N", "Argentina", null, null, null, null, null, null, "finanzas", "plencinas@gmail.com"),
+        (  "carl13", "carl13", "Carlos Sanz",  "N", "Argentina", null, null, null, null, null, null, "finanzas", "plencinas@gmail.com");
 
 /*Deletes Examples in different tables*/
 

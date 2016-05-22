@@ -1,4 +1,4 @@
-CREATE TABLE `telefoniaAdmin` (
+CREATE TABLE `telefonia_admin` (
   `idIBM` varchar(6) NOT NULL,
   `fullName` varchar(40) NOT NULL,
   `mail` varchar(30) NOT NULL,

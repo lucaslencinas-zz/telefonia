@@ -64,6 +64,37 @@ exports.buildGetServiciosDeManagerQueryString = function(tipoDeServicio, idUsuar
   return query;
 };
 
+exports.buildGetServiciosDeUsuarioTelefoniaLocalQueryString = function(tipoDeServicio, idUsuario, pais){
+  var typesWhereClause = {
+      "aprobados":"AND estado = 'aprobado'",
+      "pendientes":"AND (estado = 'pendienteTelefoniaAdmin' OR estado = 'pendienteGerente' OR estado = 'pendienteTelefoniaLocal')",
+      "rechazados":"AND estado = 'rechazado'",
+      "todos": ""
+    };
+
+  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  query += "FROM  altainterno ";
+  query += "WHERE (idIBM = '" + idUsuario + "' OR pais = '" + pais + "') ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
+  query += typesWhereClause[tipoDeServicio];
+  console.log(query);
+  return query;
+}
+
+exports.buildGetServiciosDeUsuarioTelefoniaAdminQueryString = function(tipoDeServicio, idUsuario){
+  var typesWhereClause = {
+      "aprobados":"WHERE estado = 'aprobado'",
+      "pendientes":"WHERE (estado = 'pendienteTelefoniaAdmin' OR estado = 'pendienteGerente' OR estado = 'pendienteTelefoniaLocal')",
+      "rechazados":"WHERE estado = 'rechazado'",
+      "todos": ""
+    };
+
+  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  query += "FROM  altainterno ";
+  query += typesWhereClause[tipoDeServicio];
+  console.log(query);
+  return query;
+}
+
 
 exports.buildAltaInternoLogQueryString = function(pedido, ticket){
 	var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
@@ -93,6 +124,14 @@ exports.buildGetTicketLogsQueryString = function(ticket){
   var query = "SELECT * ";
   query += "FROM  logs ";
   query += "WHERE (ticket = " + ticket + ")";
+  console.log(query);
+  return query;
+}
+
+exports.buildCheckAdminUserQueryString = function(idIBM){
+  var query = "SELECT * ";
+  query += "FROM  telefonia_admin ";
+  query += "WHERE (idIBM = '" + idIBM + "')";
   console.log(query);
   return query;
 }
