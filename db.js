@@ -88,3 +88,11 @@ exports.buildGetTicketInfoQueryString = function(ticket){
   console.log(query);
   return query;
 }
+
+exports.buildGetTicketLogsQueryString = function(ticket){
+  var query = "SELECT * ";
+  query += "FROM  logs ";
+  query += "WHERE (ticket = " + ticket + ")";
+  console.log(query);
+  return query;
+}

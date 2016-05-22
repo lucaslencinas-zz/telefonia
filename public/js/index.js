@@ -206,13 +206,28 @@ function abrirModalDeTicket(nroTicket){
         $('#modalTicketDescription').modal('toggle');
         var modalBody = $("#modalTicketDescription .modal-body");
         modalBody.load("modal-content-alta-interno.html", function(){
-          console.log("se cargo el modal, hay que llenarlo con los datos de la base");
           loadContentAltaInternoModal(response.value);
-
-
+          requestTicketLogs(response.value.ticket);
         });
       }
+    }
+  });
+}
 
+function requestTicketLogs(ticket){
+  $.ajax({
+    type: "GET",
+    contentType: "application/json",
+    url: "/logs/" + ticket,
+    success: function(response){
+      console.log("response: " + JSON.stringify(response));
+      if(response.result == "error"){
+        alert("Hubo un error con los logs del ticket: " + response.value);
+      }else{
+        response.value.forEach(function(log, index, array){
+            $('#logsList').append('<li>'+log.descripcion+'</li>');
+        });
+      }
     }
   });
 }

@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var servicios = require('./routes/servicios')
 var ibmLogin = require('./routes/ibmLogin')
 var data = require('./routes/data')
+var logs = require('./routes/logs')
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/users', users);
 app.use('/servicios', servicios)
 app.use('/ibmLogin', ibmLogin)
 app.use('/data', data)
+app.use('/logs', logs)
 
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
