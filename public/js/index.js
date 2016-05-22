@@ -118,7 +118,12 @@ function loadUserServices(servicesType){
     url: "/servicios/" + urlService + (Cookies.get("isManager") == "Y"? "/manager/":"/" ) + Cookies.get('idIBM'),
     success: function (response) {
       console.log(JSON.stringify(response));
-      renderServiceOnTable(response.value);
+      if(response.result == "error"){
+        console.log(response.value);
+        $(".table-responsive").prepend(response.value);
+      }else{
+        renderServiceOnTable(response.value);
+      }
     },
     error: function(){
       console.log("error");

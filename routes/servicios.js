@@ -34,53 +34,19 @@ router.get('/:tipoDeServicio/:idUsuario', function(req, res, next) {
       if(rows.length > 0){
         if(rows[0].rol == "telefoniaLocal"){
           console.log('El usuario es un telefoniaLocal');
-          connection.query( db.buildGetServiciosDeUsuarioTelefoniaLocalQueryString(req.params.tipoDeServicio, req.params.idUsuario, rows[0].pais), function(err3, rows3) {
-            if (err3) {
-              throw err3;
-            }
-            if(rows.length == 0){
-              console.log("El usuario no tiene tickets");
-              res.json({result: "error", value: "EL usuario no tiene tickets"});
-            }else{
-            res.json({result: rows[0].rol, value: rows3});
-            connection.release();
-            }
-          });
+          getServiciosDeTelefoniaLocal(res, connection, req.params.tipoDeServicio, req.params.idUsuario, rows[0].pais);
         }else{
           console.log('El usuario es un telefoniaAdmin');
-          connection.query( db.buildGetServiciosDeUsuarioTelefoniaAdminQueryString(req.params.tipoDeServicio, req.params.idUsuario), function(err4, rows4) {
-            if (err4) {
-              throw err4;
-            }
-            if(rows.length == 0){
-              console.log("El usuario no tiene tickets");
-              res.json({result: "error", value: "EL usuario no tiene tickets"});
-            }else{
-            res.json({result: rows[0].rol, value: rows4});
-            connection.release();
-            }
-          });
+          getServiciosDeTelefoniaAdmin(res, connection, req.params.tipoDeServicio, req.params.idUsuario);
         }
-        /*res.json({result: row[0].rol, value: row[0]});*/
-
       }else{
         console.log('El usuario es uno comun');
-        connection.query( db.buildGetServiciosDeUsuarioQueryString(req.params.tipoDeServicio, req.params.idUsuario), function(err2, rows2) {
-          if (err2) {
-            throw err2;
-          }
-          if(rows.length == 0){
-            console.log("El usuario no tiene tickets");
-            res.json({result: "error", value: "EL usuario no tiene tickets"});
-          }else{
-          res.json({result: "comun", value: rows2});
-          connection.release();
-          }
-        });
+        getServiciosDeUsuarioComun(res, connection, req.params.tipoDeServicio, req.params.idUsuario);
       }
     });
   });
 });
+
 
 router.get('/:tipoDeServicio/manager/:idUsuario', function(req, res, next) {
   console.log('Adentro de GET /servicios/' + req.params.tipoDeServicio  + "/manager/" + req.params.idUsuario );
@@ -90,9 +56,13 @@ router.get('/:tipoDeServicio/manager/:idUsuario', function(req, res, next) {
       if (err) {
         throw err;
       }
-      res.json(rows);
+      if(rows.length == 0){
+        console.log("No se encontraron tickets para el usuario");
+        res.json({result: "error", value: "No se encontraron tickets para el usuario"});
+      }else{
+        res.json({result: "manager", value: rows });
+      }
       connection.release();
-      // Don't use the connection here, it has been returned to the pool.
     });
 
   });
@@ -112,14 +82,62 @@ router.get('/:nroTicket', function(req, res, next) {
         console.log("Ticket no encontrado");
         res.json({result: "error", value: "Ticket no encontrado"});
       }else{
-        console.log('Ticket encontrado');
         res.json({result: "ok", value: rows[0] });
       }
       connection.release();
-      // Don't use the connection here, it has been returned to the pool.
     });
 
   });
 });
+
+/*------------ Helper functions ------------*/
+
+function getServiciosDeTelefoniaLocal(res, connection, tipoServicio, idIBM, pais){
+  connection.query( db.buildGetServiciosDeUsuarioTelefoniaLocalQueryString(tipoServicio, idIBM, pais), function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    if(rows.length == 0){
+      console.log("No se encontraron tickets para el usuario");
+      res.json({result: "error", value: "No se encontraron tickets para el usuario"});
+    }else{
+      res.json({result: rows[0].rol, value: rows});
+    }
+    connection.release();
+  });
+}
+
+function getServiciosDeTelefoniaAdmin(res, connection, tipoServicio, idIBM){
+  connection.query( db.buildGetServiciosDeUsuarioTelefoniaAdminQueryString(tipoServicio, idIBM), function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    if(rows.length == 0){
+      console.log("No se encontraron tickets para el usuario");
+      res.json({result: "error", value: "No se encontraron tickets para el usuario"});
+    }else{
+      res.json({result: rows[0].rol, value: rows});
+    }
+    connection.release();
+  });
+}
+
+function getServiciosDeUsuarioComun(res, connection, tipoServicio, idIBM){
+  connection.query( db.buildGetServiciosDeUsuarioQueryString(tipoServicio, idIBM), function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    if(rows.length == 0){
+      console.log("No se encontraron tickets para el usuario");
+      res.json({result: "error", value: "No se encontraron tickets para el usuario"});
+    }else{
+    res.json({result: "comun", value: rows});
+    }
+    connection.release();
+  });
+}
+
+
+
 
 module.exports = router;
