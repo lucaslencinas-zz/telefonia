@@ -84,7 +84,23 @@
           $(".form-signin input").css("border-color", "red");
         }else{
           logIn(response);
-          location.href="index.html";
+          /*Check admin levels*/
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({mail:mail,password:pass, idIBM: Cookies.get('idIBM') }),
+            url: "/adminsLevel",
+            success: function (response) {
+              console.log(JSON.stringify(response));
+              if(response.result == "admin"){
+                addAdminPermitions(response);
+              }
+              location.href="index.html";
+            },
+            error: function(){
+              console.log("error");
+            }
+          });
         }
       },
       error: function(){

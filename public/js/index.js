@@ -280,15 +280,8 @@ function loadContentAltaInternoModal(info){
   $('#selectDiscado option[id="' + info.discado +'"]').prop("selected",true);
   $('#justificacion').val(info.justificacion);
 
-  if(!(Cookies.get("isManager") == "Y" && Cookies.get("idIBM") == info.idFManager && info.estado == "pendienteGerente")){
-    $(".modal-footer .btn-success").hide();
-    $(".modal-footer .btn-warning").hide();
-    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
-  }else{
-    $(".modal-footer .btn-success").show();
-    $(".modal-footer .btn-warning").show();
-    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
-  }
+  checkPermittedActions(info);
+
   var countryChoosen = $("#selectPais option:selected").attr("id");
   $('#selectEdificio').find('option').remove().end();
   mapCountryBuildings[countryChoosen].buildings.forEach(function(building, index, array){
@@ -305,5 +298,20 @@ function loadContentAltaInternoModal(info){
       }));
     }
   });
+}
 
+function checkPermittedActions(info){
+  var actionNeededAsManager = Cookies.get("isManager") == "Y" && Cookies.get("idIBM") == info.idFManager && info.estado == "pendienteGerente";
+  var actionNeededAsTelefoniaLocal = Cookies.get("isTelefoniaLocal") == "Y" && Cookies.get("pais") == info.pais && info.estado == "pendienteTelefoniaLocal";
+  var actionNeededAsTelefoniaAdmin = Cookies.get("isTelefoniaAdmin") == "Y" && info.estado == "pendienteTelefoniaAdmin";
+
+  $(".modal-footer .btn-success").hide();
+  $(".modal-footer .btn-warning").hide();
+  $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
+
+  if(actionNeededAsManager || actionNeededAsTelefoniaAdmin || actionNeededAsTelefoniaLocal){
+    $(".modal-footer .btn-success").show();
+    $(".modal-footer .btn-warning").show();
+    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
+  }
 }

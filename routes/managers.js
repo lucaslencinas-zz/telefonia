@@ -45,6 +45,4 @@ router.post('/rechazar', function(req, res) {
 });
 
 
-
-
 module.exports = router;

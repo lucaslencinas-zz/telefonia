@@ -11,6 +11,7 @@ var servicios = require('./routes/servicios')
 var ibmLogin = require('./routes/ibmLogin')
 var data = require('./routes/data')
 var logs = require('./routes/logs')
+var adminsLevel = require('./routes/adminsLevel')
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/servicios', servicios)
 app.use('/ibmLogin', ibmLogin)
 app.use('/data', data)
 app.use('/logs', logs)
+app.use('/adminsLevel', adminsLevel)
 
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler

@@ -111,6 +111,14 @@ exports.buildGetDataDeUsuarioQueryString = function(idIBM){
   return query;
 }
 
+exports.buildCheckAdminsLevelQueryString = function(idIBM){
+  var query = "SELECT  idIBM, fullName, rol, pais ";
+  query += "FROM telefonia_admin ";
+  query += "WHERE (idIBM = '" + idIBM + "')";
+  console.log(query);
+  return query;
+}
+
 exports.buildGetTicketInfoQueryString = function(ticket){
   var query = "SELECT * ";
   query += "FROM  altainterno ";
