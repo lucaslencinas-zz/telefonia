@@ -4,14 +4,14 @@ var router = express.Router();
 
 
 router.post('/aprobar', function(req, res) {
-  console.log('Adentro de POST /manager/aprobar');
+  console.log('Adentro de POST /telefoniaLocal/aprobar');
   console.log('body: ' + JSON.stringify(req.body));
   db.getConnection(function(err, connection){
-    connection.query( db.buildAprobacionManagerQueryString(req.body), function(err, result) {
+    connection.query( db.buildAprobacionTelefoniaLocalQueryString(req.body), function(err, result) {
       if (err) {
         throw err;
       }
-			connection.query( db.buildAprobacionManagerLogQueryString(req.body), function(err2, result2) {
+			connection.query( db.buildAprobacionTelefoniaLocalLogQueryString(req.body), function(err2, result2) {
         if (err2) {
           throw err2;
         }
@@ -25,14 +25,14 @@ router.post('/aprobar', function(req, res) {
 
 
 router.post('/rechazar', function(req, res) {
-  console.log('Adentro de POST /manager/rechazar');
+  console.log('Adentro de POST /telefoniaLocal/rechazar');
   console.log('body: ' + JSON.stringify(req.body));
   db.getConnection(function(err, connection){
-    connection.query( db.buildRechazoManagerQueryString(req.body), function(err, result) {
+    connection.query( db.buildRechazoTelefoniaLocalQueryString(req.body), function(err, result) {
       if (err) {
         throw err;
       }
-			connection.query( db.buildRechazoManagerLogQueryString(req.body), function(err2, result2) {
+			connection.query( db.buildRechazoTelefoniaLocalLogQueryString(req.body), function(err2, result2) {
         if (err2) {
           throw err2;
         }

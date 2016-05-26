@@ -49,22 +49,22 @@ function loadInitialPage(){
 }
 
 function loadButtonsFunctionalities(){
-  $("#btnAprobarTicket").click(function(){
-    sendFManagerApproval();
-  });
-  $("#btnRechazarTicket").click(function(){
-    $('#modalRechazarTicketConfirmacion').modal('toggle');
-  });
-  $("#btnModalRechazar").click(function(){
-    sendFManagerDenial();
-  });
+
+  /*Por ahora no pongo las funcionalidades aca de estos botones*/
+  /*Los seteo dependiendo del rol que tienen*/
 }
 
 function sendFManagerDenial(){
   $.ajax({
     type: "POST",
     contentType: "application/json",
-    data: JSON.stringify({ticket: $("#textTicket").val(), idFManager: $("#textIdFManager").val(), fManager: $("#textFManager").val(), motivoFManager: $("#motivoFManagerEnModal").val(), fechaFManager: new Date().toMysqlFormat() }),
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: $("#textIdFManager").val(),
+      fullName: $("#textFManager").val(),
+      motivo: $("#motivoRechazoEnModal").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
     url: "/managers/rechazar",
     success: function (response) {
       alert(JSON.stringify(response));
@@ -82,10 +82,112 @@ function sendFManagerApproval(){
   $.ajax({
     type: "POST",
     contentType: "application/json",
-    data: JSON.stringify({ticket: $("#textTicket").val(), idFManager: $("#textIdFManager").val(), fManager: $("#textFManager").val(), fechaFManager: new Date().toMysqlFormat()}),
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: $("#textIdFManager").val(),
+      fullName: $("#textFManager").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
     url: "/managers/aprobar",
     success: function (response) {
       alert(JSON.stringify(response));
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
+}
+
+function sendTelefoniaLocalApproval(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: Cookies.get("idIBM"),
+      fullName: Cookies.get("fullName"),
+      fecha: new Date().toMysqlFormat(),
+      mac: $("#textMac").val(),
+      marca: $("#textMarca").val(),
+      serie: $("#textSerie").val(),
+      modelo: $("#textModelo").val()
+    }),
+    url: "/telefoniaLocal/aprobar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
+}
+
+function sendTelefoniaLocalDenial(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: Cookies.get("idIBM"),
+      fullName: Cookies.get("fullName"),
+      motivo: $("#motivoRechazoEnModal").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
+    url: "/telefoniaLocal/rechazar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
+}
+
+function sendTelefoniaAdminApproval(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: $("#textIdFManager").val(),
+      fullName: $("#textFManager").val(),
+      fecha: new Date().toMysqlFormat(),
+      interno:$("#textInterno").val()
+    }),
+    url: "/telefoniaAdmin/aprobar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalTicketDescription').modal('toggle');
+      location.reload();
+    },
+    error: function(){
+      alert("Error en el servidor");
+    }
+  });
+}
+
+function sendTelefoniaAdminDenial(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: Cookies.get("idIBM"),
+      fullName: Cookies.get("fullName"),
+      motivo: $("#motivoRechazoEnModal").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
+    url: "/telefoniaAdmin/rechazar",
+    success: function (response) {
+      alert(JSON.stringify(response));
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
@@ -306,12 +408,80 @@ function checkPermittedActions(info){
   var actionNeededAsTelefoniaAdmin = Cookies.get("isTelefoniaAdmin") == "Y" && info.estado == "pendienteTelefoniaAdmin";
 
   $(".modal-footer .btn-success").hide();
-  $(".modal-footer .btn-warning").hide();
+  $(".modal-footer .btn-danger").hide();
   $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
 
   if(actionNeededAsManager || actionNeededAsTelefoniaAdmin || actionNeededAsTelefoniaLocal){
     $(".modal-footer .btn-success").show();
-    $(".modal-footer .btn-warning").show();
+    $(".modal-footer .btn-danger").show();
     $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
   }
+  if(actionNeededAsManager){
+    $("#btnAprobarTicket").click(function(event){
+      console.log("actionNeededAsManager");
+      sendFManagerApproval();
+      event.stopImmediatePropagation();
+    });
+    $("#btnRechazarTicket").click(function(event){
+      console.log("actionNeededAsManager");
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
+      event.stopImmediatePropagation();
+    });
+    $("#btnModalRechazar").click(function(event){
+      console.log("actionNeededAsManager");
+      sendFManagerDenial();
+      event.stopImmediatePropagation();
+    });
+  }
+
+  if(actionNeededAsTelefoniaLocal){
+    $("#btnAprobarTicket").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      $('#modalAprobarTicketConfirmacion').modal('toggle');
+      $(".form-group-local").show();
+      $(".form-group-admin").hide();
+      event.stopImmediatePropagation();
+    });
+    $("#btnModalAprobar").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      sendTelefoniaLocalApproval();
+      event.stopImmediatePropagation();
+    });
+    $("#btnRechazarTicket").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
+      event.stopImmediatePropagation();
+    });
+    $("#btnModalRechazar").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      sendTelefoniaLocalDenial();
+      event.stopImmediatePropagation();
+    });
+  }
+
+  if(actionNeededAsTelefoniaAdmin){
+    $("#btnAprobarTicket").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      $('#modalAprobarTicketConfirmacion').modal('toggle');
+      $(".form-group-local").hide();
+      $(".form-group-admin").show();
+      event.stopImmediatePropagation();
+    });
+    $("#btnModalAprobar").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      sendTelefoniaAdminApproval();
+      event.stopImmediatePropagation();
+    });
+    $("#btnRechazarTicket").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      $('#modalRechazarTicketConfirmacion').modal('toggle');
+      event.stopImmediatePropagation();
+    });
+    $("#btnModalRechazar").click(function(event){
+      console.log("actionNeededAsTelefoniaLocal");
+      sendTelefoniaAdminDenial();
+      event.stopImmediatePropagation();
+    });
+  }
+
 }

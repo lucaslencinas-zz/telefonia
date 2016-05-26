@@ -17,7 +17,7 @@ exports.getConnection = function(callback) {
 exports.buildAltaInternoQueryString = function(pedido) {
   var query = "INSERT INTO altainterno (idIBM, fullName, pais, estado, fManager, sManager, idFManager, idSManager, edificio, piso, departamento, intReferencia, aparato, voicemail, justificacion, fechaInicio, nivelAprobacion, servicio, tipo, discado)";
   query += " VALUES ('" + pedido.idIBM + "','"  + pedido.fullName + "','"  + pedido.pais  + "','"  + 'pendienteGerente' + "','"  +  pedido.gerente1 + "','";
-  query += pedido.gerente2 + "','" + pedido.idGerente1 + "','" + pedido.idGerente2 + "','" + pedido.edificio + "','"  + pedido.piso + "','" + pedido.departamento + "',"  + pedido.interno + ",'";
+  query += pedido.gerente2 + "','" + pedido.idGerente1 + "','" + pedido.idGerente2 + "','" + pedido.edificio + "','"  + pedido.piso + "','" + pedido.departamento + "',"  + parseInt(pedido.interno, 10) + ",'";
   query += (pedido.requiereAparato? "SI":"NO") + "','"  + (pedido.requiereVoiceMail? "SI":"NO") + "','" + pedido.justificacion + "', '" + pedido.fechaInicio + "', " + 1 + ", 'AltaInterno', 'Alta', '" + pedido.discado + "')";
   console.log(query);
   return query;
@@ -145,16 +145,18 @@ exports.buildCheckAdminUserQueryString = function(idIBM){
 
 
 
+/*-----------------Queries para aprobaciones y rechazos------------------*/
+
 exports.buildAprobacionManagerLogQueryString = function(pedido){
   var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
-  query += "VALUES ('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaLocal')";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaLocal')";
   console.log(query);
   return query;
 }
 
 exports.buildAprobacionManagerQueryString = function(pedido){
   var query = "UPDATE altainterno SET ";
-  query += "estado = 'pendienteTelefoniaLocal'," + " fechaFManager = '" + pedido.fechaFManager + "' ";
+  query += "estado = 'pendienteTelefoniaLocal'," + " fechaFManager = '" + pedido.fecha + "' ";
   query += "WHERE ticket = '" + pedido.ticket + "'";
   console.log(query);
   return query;
@@ -162,15 +164,85 @@ exports.buildAprobacionManagerQueryString = function(pedido){
 
 exports.buildRechazoManagerLogQueryString = function(pedido){
   var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
-  query += "VALUES ('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaLocal')";
-  query += ",('" + pedido.idFManager + "', '" + pedido.fManager + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fManager + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a rechazado')";
+  query += " ,('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
   console.log(query);
   return query;
 }
 
 exports.buildRechazoManagerQueryString = function(pedido){
   var query = "UPDATE altainterno SET ";
-  query += "estado = 'rechazado'," + " fechaFManager = '" + pedido.fechaFManager + "', motivoFManager = '" + pedido.motivoFManager + "' ";
+  query += "estado = 'rechazado'," + " fechaFManager = '" + pedido.fecha + "', motivoFManager = '" + pedido.motivo + "' ";
+  query += "WHERE ticket = '" + pedido.ticket + "'";
+  console.log(query);
+  return query;
+}
+
+
+
+
+exports.buildAprobacionTelefoniaLocalLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a pendienteTelefoniaAdmin')";
+  console.log(query);
+  return query;
+}
+
+exports.buildAprobacionTelefoniaLocalQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'pendienteTelefoniaAdmin'," + " fechaTelefoniaLocal = '" + pedido.fecha + "'," + " macAddress = '" + pedido.mac + "',";
+  query += " marca = '" + pedido.marca + "',"  + " serie = '" + pedido.serie + "'," + " modelo = '" + pedido.modelo + "' "
+  query += "WHERE ticket = '" + pedido.ticket + "'";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoTelefoniaLocalLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a rechazado')";
+  query += " ,('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoTelefoniaLocalQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'rechazado'," + " fechaTelefoniaLocal = '" + pedido.fecha + "', motivoTelefoniaLocal = '" + pedido.motivo + "' ";
+  query += "WHERE ticket = '" + pedido.ticket + "'";
+  console.log(query);
+  return query;
+}
+
+
+
+
+exports.buildAprobacionTelefoniaAdminLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a aprobado')";
+  query += " ,('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
+  console.log(query);
+  return query;
+}
+
+exports.buildAprobacionTelefoniaAdminQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'aprobado'," + " fechaTelefoniaAdmin = '" + pedido.fecha + "' ";
+  query += "WHERE ticket = '" + pedido.ticket + "'";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoTelefoniaAdminLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a rechazado')";
+  query += " ,('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", 'Cambio de Estado', " + "'" + pedido.fullName + " ha cambiado el estado del ticket nro " + pedido.ticket + " a cerrado')";
+  console.log(query);
+  return query;
+}
+
+exports.buildRechazoTelefoniaAdminQueryString = function(pedido){
+  var query = "UPDATE altainterno SET ";
+  query += "estado = 'rechazado'," + " fechaTelefoniaAdmin = '" + pedido.fecha + "', motivoTelefoniaAdmin = '" + pedido.motivo + "' ";
   query += "WHERE ticket = '" + pedido.ticket + "'";
   console.log(query);
   return query;

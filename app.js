@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var managers = require('./routes/managers');
+var telefoniaLocal = require('./routes/telefoniaLocal');
+var telefoniaAdmin = require('./routes/telefoniaAdmin');
 var servicios = require('./routes/servicios')
 var ibmLogin = require('./routes/ibmLogin')
 var data = require('./routes/data')
@@ -28,6 +30,8 @@ app.use(cookieParser());
 
 app.use('/', routes);
 app.use('/managers', managers);
+app.use('/telefoniaLocal', telefoniaLocal);
+app.use('/telefoniaAdmin', telefoniaAdmin);
 app.use('/servicios', servicios)
 app.use('/ibmLogin', ibmLogin)
 app.use('/data', data)
