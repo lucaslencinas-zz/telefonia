@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
 var managers = require('./routes/managers');
 var telefoniaLocal = require('./routes/telefoniaLocal');
 var telefoniaAdmin = require('./routes/telefoniaAdmin');
@@ -28,7 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', routes);
 app.use('/managers', managers);
 app.use('/telefoniaLocal', telefoniaLocal);
 app.use('/telefoniaAdmin', telefoniaAdmin);
