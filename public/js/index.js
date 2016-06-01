@@ -38,6 +38,8 @@ $(function(){
 function loadInitialPage(){
   $("#dropdownNombreUsuario").text(Cookies.get('fullName').split(" ")[0]);
   $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
+    $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
+    $(".fa-spin").hide();
     loadUserServices("servicios-a");
   });
   addRedirectionToLeftLinks();
@@ -202,6 +204,7 @@ function addModalNuevoServicio(){
     $("#modalNuevoServicio .btn-success").click(function(){
       var serviceRequested = mapPagesLinks[$("#servicioSelect option:selected").attr("id")];
       $("#container-fluid").load(serviceRequested.pagina, function(){
+          $("fa-spin").hide();
           cargarTraerDatosRow(serviceRequested.actionOnLoad);
       });
       $("#modalNuevoServicio").modal('hide');
@@ -218,6 +221,8 @@ function addRedirectionToLeftLinks(){
   $(".side-nav a").click(function(){
     var servicesTypes = $(this).attr("id");
     $("#container-fluid").load(mapPagesLinks[servicesTypes].pagina,function(){
+      $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
+      $(".fa-spin").hide();
       loadUserServices(servicesTypes);
     });
     return false;
@@ -225,7 +230,6 @@ function addRedirectionToLeftLinks(){
 }
 
 function loadUserServices(servicesType){
-  console.log("pedir a la base de datos los servicios del usuairo actual: " + servicesType);
   var urlService = "";
   if(servicesType == "servicios-aprobados-a")
     urlService = "aprobados";
@@ -236,18 +240,21 @@ function loadUserServices(servicesType){
   if(servicesType == "servicios-a")
     urlService = "todos";
 
+
+  $(".fa-spin").css("display","inline-block");
   $.ajax({
     type: "GET",
     contentType: "application/json",
     url: "/servicios/" + urlService + (Cookies.get("isManager") == "Y"? "/manager/":"/" ) + Cookies.get('idIBM'),
     success: function (response) {
-      console.log(JSON.stringify(response));
       if(response.result == "error"){
-        console.log(response.value);
         $(".table-responsive").prepend(response.value);
       }else{
         renderServiceOnTable(response.value);
       }
+    },
+    complete: function(){
+      $(".fa-spin").hide();
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -258,46 +265,40 @@ function loadUserServices(servicesType){
 function renderServiceOnTable(servicios){
   var stringFila;
   servicios.forEach(function(servicio, index, array){
-    stringFila = "<tr>";
-    stringFila += "<tr>";
-    stringFila += "<th scope='row'><a onclick='abrirModalDeTicket(" + servicio.ticket + ");'>" + servicio.ticket + "</a></th>";
-    stringFila += "<td>" + servicio.fullName + "</td>";
-    stringFila += "<td>" + servicio.idIBM + "</td>";
-    stringFila += "<td>" + servicio.fechaInicio + "</td>";
-    stringFila += "<td>" + "Alta Interno" + "</td>";
-    stringFila += "<td>" + "Alta" + "</td>";
-    stringFila += "<td>" + servicio.estado + "</td>";
-    stringFila += "</tr>";
-
-    $("table tbody").append(stringFila);
+    var ticket = new Ticket(servicio);
+    $("table tbody").append(ticket.toRowString());
   });
 }
 
 
 function cargarTraerDatosRow(onLoadFunction){
   $("#rowTraerDatos").load("traer-datos-div.html",function(){
-      $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
-      $("#traerDatosButton").click(function(){
-        $.ajax({
-          type: "GET",
-          contentType: "application/json",
-          url: "/data/" + $('#nroEmpleado').val(),
-          success: function (response) {
-            console.log(JSON.stringify(response));
-            if(response.result == "error"){
-              $("#traerDatosErrorMsg").html(response.value);
-              $("#nroEmpleado").css("border-color", "red");
-            }else{
-              $("#traerDatosErrorMsg").html("");
-              $("#nroEmpleado").css("border-color", "#ccc");
+    $(".fa-spin").hide();
+    $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
+    $("#traerDatosButton").click(function(){
+      $(".fa-spin").css("display","inline-block");
+      $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/data/" + $('#nroEmpleado').val(),
+        success: function (response) {
+          if(response.result == "error"){
+            $("#traerDatosErrorMsg").html(response.value);
+            $("#nroEmpleado").css("border-color", "red");
+          }else{
+            $("#traerDatosErrorMsg").html("");
+            $("#nroEmpleado").css("border-color", "#ccc");
 
-              habilitarForm(response.value,onLoadFunction);
-            }
-          },
-          error: function(jqXHR, textStatus, errorThrown ){
-            bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
+            habilitarForm(response.value,onLoadFunction);
           }
-        });
+        },
+        complete: function(){
+          $(".fa-spin").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown ){
+          bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
+        }
+      });
     });
   });
 }
@@ -326,9 +327,8 @@ function abrirModalDeTicket(nroTicket){
     contentType: "application/json",
     url: "/servicios/" + nroTicket,
     success: function(response){
-      console.log("response: " + JSON.stringify(response));
       if(response.result == "error"){
-        alert("Hubo un error con el ticket: " + response.value);
+        bootbox.alert("Hubo un error con el ticket: " + response.value);
       }else{
         $('#modalTicketDescription').modal('toggle');
         var modalBody = $("#modalTicketDescription .modal-body");
@@ -350,9 +350,8 @@ function requestTicketLogs(ticket){
     contentType: "application/json",
     url: "/logs/" + ticket,
     success: function(response){
-      console.log("response: " + JSON.stringify(response));
       if(response.result == "error"){
-        alert("Hubo un error con los logs del ticket: " + response.value);
+        bootbox.alert("Hubo un error con los logs del ticket: " + response.value);
       }else{
         response.value.forEach(function(log, index, array){
             $('#logsList').append('<li>'+log.descripcion+'</li>');
@@ -370,14 +369,14 @@ function loadContentAltaInternoModal(info){
   $("#textIdIBM").val(info.idIBM);
   $("#textFullName").val(info.fullName);
   $("#textTicket").val(info.ticket);
-  $("#textEstado").val(info.estado);
+  $("#textEstado").val(State.betterString(info.estado));
   $("#textServicio").val(info.servicio);
   $("#textTipo").val(info.tipo);
   $("#textIdFManager").val(info.idFManager);
   $("#textFManager").val(info.fManager);
   $("#textIdSManager").val(info.idSManager);
   $("#textSManager").val(info.sManager);
-  $("#textFechaInicio").val(info.fechaInicio);
+  $("#textFechaInicio").val((new Date(info.fechaInicio)).toLocaleString());
   $("#textPiso").val(info.piso);
   $("#textDepartamento").val(info.departamento);
   $("#textInterno").val(info.intReferencia);

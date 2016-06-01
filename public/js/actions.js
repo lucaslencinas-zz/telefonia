@@ -49,16 +49,19 @@ function setAltaInternoBehaviour(){
     data.idGerente2 = $('#idGerente2EnAlta span').text();
     data.fechaInicio = new Date().toMysqlFormat();
 
+    $("#altaInterno-row .fa-spin").css("display", "inline-block");
     $.ajax({
   		type: "POST",
   		contentType: "application/json",
   		data: JSON.stringify(data),
   		url: "/servicios",
   		success: function (response) {
-        alert(JSON.stringify(response));
-        location.reload();
+        bootbox.alert("<strong>Resultado: Se genero exitosamente el ticket nro:" + response.id + ".</strong>", function() {
+          location.reload();
+        });
   		},
       error: function(jqXHR, textStatus, errorThrown ){
+        $(".fa-spin").hide();
         bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
       }
   	});
