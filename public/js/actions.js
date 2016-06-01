@@ -58,17 +58,9 @@ function setAltaInternoBehaviour(){
         alert(JSON.stringify(response));
         location.reload();
   		},
-  		complete:function (){
-  			alert("complete");
-  		},
-      error: function(){
-        alert("error");
-      }/*,
-  		statusCode: {
-  			409: function () {
-  					alerta("Hubo un error al grabar la rampa en la base de datos.");
-  			}
-  		}*/
+      error: function(jqXHR, textStatus, errorThrown ){
+        bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
+      }
   	});
   });
 }

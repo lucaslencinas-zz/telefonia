@@ -83,6 +83,8 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/plugins/js-cookie/src/js.cookie.js"></script>
   <script src="js/login.js" type="text/javascript"></script>
+  <script src="css/bootbox/bootbox.js" type="text/javascript"></script>
+
 
   <script type="text/javascript">
   var mail,pass;
@@ -131,8 +133,8 @@
               }
               location.href="index.html";
             },
-            error: function(){
-              console.log("error");
+            error: function(jqXHR, textStatus, errorThrown ){
+              bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
             }
           });
         }

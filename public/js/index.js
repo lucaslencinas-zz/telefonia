@@ -72,8 +72,8 @@ function sendFManagerDenial(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -94,8 +94,8 @@ function sendFManagerApproval(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -120,8 +120,8 @@ function sendTelefoniaLocalApproval(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -144,8 +144,8 @@ function sendTelefoniaLocalDenial(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -167,8 +167,8 @@ function sendTelefoniaAdminApproval(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -191,8 +191,8 @@ function sendTelefoniaAdminDenial(){
       $('#modalTicketDescription').modal('toggle');
       location.reload();
     },
-    error: function(){
-      alert("Error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -249,9 +249,8 @@ function loadUserServices(servicesType){
         renderServiceOnTable(response.value);
       }
     },
-    error: function(){
-      console.log("error");
-      alert("Hubo un error en el servidor");
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -295,9 +294,8 @@ function cargarTraerDatosRow(onLoadFunction){
               habilitarForm(response.value,onLoadFunction);
             }
           },
-          error: function(){
-            console.log("error");
-            alert("Hubo un error en el servidor");
+          error: function(jqXHR, textStatus, errorThrown ){
+            bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
           }
         });
     });
@@ -339,6 +337,9 @@ function abrirModalDeTicket(nroTicket){
           requestTicketLogs(response.value.ticket);
         });
       }
+    },
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
@@ -357,6 +358,9 @@ function requestTicketLogs(ticket){
             $('#logsList').append('<li>'+log.descripcion+'</li>');
         });
       }
+    },
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
     }
   });
 }
