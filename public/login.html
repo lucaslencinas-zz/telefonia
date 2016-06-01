@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/login.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <style>
     #errorMsg{
@@ -24,9 +25,22 @@
       color: red;
     }
 
-    .form-signin *{
-      margin: 5px 0;
+    .input-group {
+      padding: 10px 0;
     }
+
+    .fa-stack{
+      margin-top: -100px;
+    }
+
+    .fa-inverse{
+      color: rgb(80, 132, 128);
+    }
+
+    .fa-spin{
+      display:none;
+    }
+
     </style>
 
   </head>
@@ -36,14 +50,26 @@
   <div class="container">
 
     <div class="form-signin">
-      <h2 class="form-signin-heading">Please log in</h2>
-      <label for="inputMail" class="sr-only">Mail</label>
-      <input id="inputMail" class="form-control" placeholder="Mail" required autofocus>
 
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <div class="text-center">
+        <span class="fa-stack fa-5x">
+          <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+          <i class="fa fa-user fa-stack-1x "></i>
+        </span>
+      </div>
 
-      <button class="btn btn-lg btn-primary btn-block" id="loginButton">Log in</button>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+        <input  id="inputMail" class="form-control" type="text" placeholder="Email" required autofocus>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+        <input  id="inputPassword" class="form-control" type="password" placeholder="Password" required autofocus>
+      </div>
+
+
+      <button class="btn btn-lg btn-primary btn-block" id="loginButton">Log in <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i></button>
       <div id="errorMsg"></div>
     </div>
 
@@ -67,11 +93,18 @@
       location.href="index.html";
     }
   });
+  $("#inputPassword").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        $("#loginButton").click();
+    }
+});
 
   $("#loginButton").click(function(){
     mail=$("#inputMail").val();
     pass=$("#inputPassword").val();
 
+    $(".fa-spin").css("display","inline-block");
     $.ajax({
       type: "POST",
       contentType: "application/json",
@@ -80,6 +113,7 @@
       success: function (response) {
         console.log(JSON.stringify(response));
         if(response.result == "error"){
+          $(".fa-spin").hide();
           $("#errorMsg").html(response.value);
           $(".form-signin input").css("border-color", "red");
         }else{
