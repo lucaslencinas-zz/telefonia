@@ -40,7 +40,7 @@ exports.buildGetServiciosDeUsuarioQueryString = function(tipoDeServicio, idUsuar
 			"todos": ")"
 		};
 
-	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion, servicio, tipo ";
   query += "FROM  altainterno ";
   query += "WHERE (idIBM = '" + idUsuario + "' ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
 	query += typesWhereClause[tipoDeServicio];
@@ -56,7 +56,7 @@ exports.buildGetServiciosDeManagerQueryString = function(tipoDeServicio, idUsuar
 			"todos": ""
 		};
 
-	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+	var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion, servicio, tipo ";
   query += "FROM  altainterno ";
   query += "WHERE (idIBM = '" + idUsuario + "' OR idFManager = '" + idUsuario + "') ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
 	query += typesWhereClause[tipoDeServicio];
@@ -72,7 +72,7 @@ exports.buildGetServiciosDeUsuarioTelefoniaLocalQueryString = function(tipoDeSer
       "todos": ""
     };
 
-  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion, servicio, tipo ";
   query += "FROM  altainterno ";
   query += "WHERE (idIBM = '" + idUsuario + "' OR pais = '" + pais + "') ";/*le falta el cierre del parentesis, lo agrega la linea de abajo*/
   query += typesWhereClause[tipoDeServicio];
@@ -88,7 +88,7 @@ exports.buildGetServiciosDeUsuarioTelefoniaAdminQueryString = function(tipoDeSer
       "todos": ""
     };
 
-  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion ";
+  var query = "SELECT idIBM, fullName, pais, ticket, estado, fechaInicio, fManager, sManager, idFManager, idSManager, edificio, piso, intReferencia, aparato, voicemail, justificacion, servicio, tipo ";
   query += "FROM  altainterno ";
   query += typesWhereClause[tipoDeServicio];
   console.log(query);
@@ -226,7 +226,7 @@ exports.buildAprobacionTelefoniaAdminLogQueryString = function(pedido){
 
 exports.buildAprobacionTelefoniaAdminQueryString = function(pedido){
   var query = "UPDATE altainterno SET ";
-  query += "estado = 'aprobado'," + " fechaTelefoniaAdmin = '" + pedido.fecha + "' ";
+  query += "estado = 'aprobado'," + " interno = " + pedido.interno + ", fechaTelefoniaAdmin = '" + pedido.fecha + "' ";
   query += "WHERE ticket = '" + pedido.ticket + "'";
   console.log(query);
   return query;

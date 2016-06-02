@@ -5,13 +5,41 @@ function Ticket(servicio) {
   this.idIBM = servicio.idIBM;
   this.fechaInicio = servicio.fechaInicio;
   this.estado = servicio.estado;
-  this.servicio = "Alta Interno";
-  this.tipo = "Alta";
+  this.servicio = servicio.servicio;
+  this.tipo = servicio.tipo;
+  this.pais = servicio.pais;
+  this.idFManager = servicio.idFManager;
+  this.fManager = servicio.fManager;
+  this.idSManager = servicio.idSManager;
+  this.sManager = servicio.sManager;
+  this.piso = servicio.piso;
+  this.departamento = servicio.departamento;
+  this.intReferencia = servicio.intReferencia;
+  this.aparato = servicio.aparato;
+  this.voicemail = servicio.voicemail;
+  this.discado = servicio.discado;
+  this.justificacion = servicio.justificacion;
+  this.nivelAprobacion = servicio.nivelAprobacion;
+  this.fechaFManager = servicio.fechaFManager;
+  this.fechaSManager = servicio.fechaSManager;
+  this.fechaTelefoniaLocal = servicio.fechaTelefoniaLocal;
+  this.fechaTelefoniaAdmin = servicio.fechaTelefoniaAdmin;
+  this.fechaCerrado = servicio.fechaCerrado;
+  this.edificio = servicio.edificio;
+  this.interno = servicio.interno;
+  this.macAddress = servicio.macAddress;
+  this.marca = servicio.marca;
+  this.modelo = servicio.modelo;
+  this.serie = servicio.serie;
+  this.motivoFManager = servicio.motivoFManager;
+  this.motivoSManager = servicio.motivoSManager;
+  this.motivoTelefoniaLocal = servicio.motivoTelefoniaLocal;
+  this.motivoTelefoniaAdmin = servicio.motivoTelefoniaAdmin;
 }
 
-Ticket.prototype.diHola = function() {
-  alert ("Hola, Soy " + this.primerNombre);
-};
+
+
+
 
 Ticket.prototype.toRowString = function(){
   var stringRow = "<tr>";

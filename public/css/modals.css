@@ -1,0 +1,22 @@
+
+/* ----- Style for Modals only -----*/
+
+
+.modal-header{
+  padding: 10px 15px;
+}
+
+
+@media (min-width: 768px){
+  #modalTicketDescription .modal-body, #modalTicketDescription .modal-body{
+    padding: 5px;
+  }
+}
+
+#altaInterno-row .well-sm{
+  margin-bottom: 0px;
+}
+
+.modal-footer{
+  padding: 7px 15px;
+}

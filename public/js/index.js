@@ -1,28 +1,29 @@
 /*
 DEPENDENCIES
 login.js
+controllers.js
 */
-var mapPagesLinks = [];
+var controllers = [];
 
-mapPagesLinks['altaInterno-a'] = {pagina: "alta-interno-div.html", actionOnLoad: setAltaInternoBehaviour}
-mapPagesLinks['altaLineaAnalogica-a'] = {pagina: "alta-linea-analogica-div.html"}
-mapPagesLinks['altaCallForwardings-a'] = {pagina: "alta-call-forwarding-div.html"}
-mapPagesLinks['altaHuntGroup-a'] = {pagina: "alta-hunt-group-div.html"}
-mapPagesLinks['altaPickupGroup-a'] = {pagina: "alta-pickup-group-div.html"}
-mapPagesLinks['altaCodigoFAC-a'] = {pagina: "alta-codigo-fac-div.html"}
-mapPagesLinks['altaCodigoCMC-a'] = {pagina: "alta-codigo-cmc-div.html"}
-mapPagesLinks['delegar-a'] = {pagina: "delegar-div.html"}
-mapPagesLinks['servicios-a'] = {pagina: "servicios-div.html"}
-mapPagesLinks['servicios-aprobados-a'] = {pagina: "servicios-aprobados-div.html"}
-mapPagesLinks['servicios-rechazados-a'] = {pagina: "servicios-rechazados-div.html"}
-mapPagesLinks['servicios-pendientes-a'] = {pagina: "servicios-pendientes-div.html"}
-mapPagesLinks['solicitar-voice-mail-a'] = {pagina: "solicitar-voice-mail-div.html"}
-mapPagesLinks['solicitar-aparato-a'] = {pagina: "solicitar-aparato-div.html"}
-mapPagesLinks['cambio-de-discado-a'] = {pagina: "cambio-de-discado-div.html"}
-mapPagesLinks['reset-password-a'] = {pagina: "reset-password-div.html"}
-mapPagesLinks['re-asignar-a'] = {pagina: "re-asignar-div.html"}
-mapPagesLinks['dar-de-baja-a'] = {pagina: "dar-de-baja-div.html"}
-mapPagesLinks['revalidar-a'] = {pagina: "revalidar-div.html"}
+controllers['altaInterno-a'] = altaInternoController;
+controllers['altaLineaAnalogica-a'] = altaLineaAnalogicaController;
+controllers['altaCallForwardings-a'] = altaCallForwardingsController;
+controllers['altaHuntGroup-a'] = altaHuntGroupController;
+controllers['altaPickupGroup-a'] = altaPickupGroupController;
+controllers['altaCodigoFAC-a'] = altaCodigoFACController;
+controllers['altaCodigoCMC-a'] = altaCodigoCMCController;
+controllers['delegar-a'] = delegarController;
+controllers['servicios-a'] = serviciosController;
+controllers['servicios-aprobados-a'] = serviciosAprobadosController;
+controllers['servicios-rechazados-a'] = serviciosRechazadosController;
+controllers['servicios-pendientes-a'] = serviciosPendientesController;
+controllers['solicitar-voice-mail-a'] = solicitarVoiceMailController;
+controllers['solicitar-aparato-a'] = solicitarAparatoController;
+controllers['cambio-de-discado-a'] = cambioDiscadoController;
+controllers['reset-password-a'] = resetPasswordController;
+controllers['re-asignar-a'] = reasignarController;
+controllers['dar-de-baja-a'] = darDeBajaController;
+controllers['revalidar-a'] = revalidarController;
 
 /*When the page is loaded*/
 $(function(){
@@ -37,7 +38,7 @@ $(function(){
 
 function loadInitialPage(){
   $("#dropdownNombreUsuario").text(Cookies.get('fullName').split(" ")[0]);
-  $("#container-fluid").load(mapPagesLinks["servicios-a"].pagina, function(){
+  $("#container-fluid").load(controllers["servicios-a"].pagina, function(){
     $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
     $(".fa-spin").hide();
     loadUserServices("servicios-a");
@@ -110,10 +111,10 @@ function sendTelefoniaLocalApproval(){
       idIBM: Cookies.get("idIBM"),
       fullName: Cookies.get("fullName"),
       fecha: new Date().toMysqlFormat(),
-      mac: $("#textMac").val(),
-      marca: $("#textMarca").val(),
-      serie: $("#textSerie").val(),
-      modelo: $("#textModelo").val()
+      mac: $("#modalAprobarTicketConfirmacion #textMac").val(),
+      marca: $("#modalAprobarTicketConfirmacion #textMarca").val(),
+      serie: $("#modalAprobarTicketConfirmacion #textSerie").val(),
+      modelo: $("#modalAprobarTicketConfirmacion #textModelo").val()
     }),
     url: "/telefoniaLocal/aprobar",
     success: function (response) {
@@ -159,7 +160,7 @@ function sendTelefoniaAdminApproval(){
       idIBM: $("#textIdFManager").val(),
       fullName: $("#textFManager").val(),
       fecha: new Date().toMysqlFormat(),
-      interno:$("#textInterno").val()
+      interno:$("#modalAprobarTicketConfirmacion #textInterno").val()
     }),
     url: "/telefoniaAdmin/aprobar",
     success: function (response) {
@@ -199,10 +200,11 @@ function sendTelefoniaAdminDenial(){
 function addModalNuevoServicio(){
   $('#modalNuevoServicio').on('shown.bs.modal', function(e) {
     $("#modalNuevoServicio .btn-success").click(function(){
-      var serviceRequested = mapPagesLinks[$("#servicioSelect option:selected").attr("id")];
-      $("#container-fluid").load(serviceRequested.pagina, function(){
+      var serviceController = controllers[$("#servicioSelect option:selected").attr("id")];
+      $("#container-fluid").load(serviceController.pagina, function(){
           $("fa-spin").hide();
-          cargarTraerDatosRow(serviceRequested.actionOnLoad);
+          serviceController.setOnSubmitClick();
+          cargarTraerDatosRow(serviceController.onTraerDatosClick);
       });
       $("#modalNuevoServicio").modal('hide');
       return false;
@@ -217,7 +219,7 @@ function addModalNuevoServicio(){
 function addRedirectionToLeftLinks(){
   $(".side-nav a").click(function(){
     var servicesTypes = $(this).attr("id");
-    $("#container-fluid").load(mapPagesLinks[servicesTypes].pagina,function(){
+    $("#container-fluid").load(controllers[servicesTypes].pagina,function(){
       $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
       $(".fa-spin").hide();
       loadUserServices(servicesTypes);
@@ -269,7 +271,7 @@ function renderServiceOnTable(servicios){
 }
 
 
-function cargarTraerDatosRow(onLoadFunction){
+function cargarTraerDatosRow(onTraerDatosClick){
   $("#rowTraerDatos").load("traer-datos-div.html",function(){
     $(".fa-spin").hide();
     $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
@@ -288,7 +290,7 @@ function cargarTraerDatosRow(onLoadFunction){
             $("#traerDatosErrorMsg").html("");
             $("#nroEmpleado").css("border-color", "#ccc");
 
-            habilitarForm(response.value,onLoadFunction);
+            habilitarForm(response.value,onTraerDatosClick);
           }
         },
         complete: function(){
@@ -313,20 +315,20 @@ function clearRightTraerDatosForm(){
   $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
 }
 
-function habilitarForm(response, onLoadFunction){
+function habilitarForm(response, onTraerDatosClick){
   renderResponseOnTraerDatos(response);
   $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',false);
-  onLoadFunction();
+  onTraerDatosClick();
 }
 
 function renderResponseOnTraerDatos(response){
-  $('#fullNameUsuarioEnAlta span').text(response.fullName);
-  $('#idIBMEnAlta span').text(response.idIBM);
-  $('#departamentoEnAlta span').text(response.departamento);
-  $('#gerente1EnAlta span').text(response.fManager);
-  $('#gerente2EnAlta span').text(response.sManager);
-  $('#idGerente1EnAlta span').text(response.idFManager);
-  $('#idGerente2EnAlta span').text(response.idSManager);
+  $('#fullNameUsuarioEnAlta span').html("<strong>" + response.fullName + "</strong>");
+  $('#idIBMEnAlta span').html("<strong>" + response.idIBM + "</strong>");
+  $('#departamentoEnAlta span').html("<strong>" + response.departamento + "</strong>");
+  $('#gerente1EnAlta span').html("<strong>" + response.fManager + "</strong>");
+  $('#gerente2EnAlta span').html("<strong>" + response.sManager + "</strong>");
+  $('#idGerente1EnAlta span').html("<strong>" + response.idFManager + "</strong>");
+  $('#idGerente2EnAlta span').html("<strong>" + response.idSManager + "</strong>");
 }
 
 
@@ -381,27 +383,40 @@ function requestTicketLogs(ticket){
 }
 
 function loadContentAltaInternoModal(info){
-  $('#selectPais option[id="' + info.pais +'"]').prop("selected",true);
-  $("#textIdIBM").val(info.idIBM);
-  $("#textFullName").val(info.fullName);
-  $("#textTicket").val(info.ticket);
-  $("#textEstado").val(State.betterString(info.estado));
-  $("#textServicio").val(info.servicio);
-  $("#textTipo").val(info.tipo);
-  $("#textIdFManager").val(info.idFManager);
-  $("#textFManager").val(info.fManager);
-  $("#textIdSManager").val(info.idSManager);
-  $("#textSManager").val(info.sManager);
-  var fecha = new Date(info.fechaInicio);
+
+  var ticket = new Ticket(info);
+
+  $('#selectPais option[id="' + ticket.pais +'"]').prop("selected",true);
+  $("#textIdIBM").val(ticket.idIBM);
+  $("#textFullName").val(ticket.fullName);
+  $("#textTicket").val(ticket.ticket);
+  $("#textEstado").val(State.betterString(ticket.estado));
+  $("#textServicio").val(ticket.servicio);
+  $("#textTipo").val(ticket.tipo);
+  $("#textIdFManager").val(ticket.idFManager);
+  $("#textFManager").val(ticket.fManager);
+  $("#textIdSManager").val(ticket.idSManager);
+  $("#textSManager").val(ticket.sManager);
+  var fecha = new Date(ticket.fechaInicio);
   fecha.toCorrectTimezone();
   $("#textFechaInicio").val(fecha.toLocaleString());
-  $("#textPiso").val(info.piso);
-  $("#textDepartamento").val(info.departamento);
-  $("#textInterno").val(info.intReferencia);
-  $('#checkboxAparato').prop('checked', (info.aparato == "SI"? true: false));
-  $('#checkboxVoiceMail').prop('checked', (info.voicemail == "SI"? true: false));
-  $('#selectDiscado option[id="' + info.discado +'"]').prop("selected",true);
-  $('#justificacion').val(info.justificacion);
+  $("#textPiso").val(ticket.piso);
+  $("#textDepartamento").val(ticket.departamento);
+  $("#textInternoRef").val(ticket.intReferencia);
+  $('#checkboxAparato').prop('checked', (ticket.aparato == "SI"? true: false));
+  $('#checkboxVoiceMail').prop('checked', (ticket.voicemail == "SI"? true: false));
+  $('#selectDiscado option[id="' + ticket.discado +'"]').prop("selected",true);
+
+  ticketAttrOnModal($("#justificacion"), ticket.justificacion);
+  ticketAttrOnModal($("#textInterno"),ticket.interno);
+  ticketAttrOnModal($("#textmacAddress"), ticket.macAddress);
+  ticketAttrOnModal($("#textMarca"), ticket.marca);
+  ticketAttrOnModal($("#textModelo"), ticket.modelo);
+  ticketAttrOnModal($("#textSerie"), ticket.serie);
+  ticketAttrOnModal($("#textMotivoFManager"), ticket.motivoFManager);
+  ticketAttrOnModal($("#textMotivoSManager"), ticket.motivoSManager);
+  ticketAttrOnModal($("#textMotivoTelefoniaLocal"), ticket.motivoTelefoniaLocal);
+  ticketAttrOnModal($("#textMotivoTelefoniaAdmin"), ticket.motivoTelefoniaAdmin);
 
   checkPermittedActions(info);
 
@@ -421,6 +436,15 @@ function loadContentAltaInternoModal(info){
       }));
     }
   });
+}
+
+function ticketAttrOnModal(domElement, value){
+  if(value == null || value.length == 0 ){
+    domElement.parent().parent().hide();
+  }else{
+    domElement.parent().parent().show();
+    domElement.val(value);
+  }
 }
 
 function checkPermittedActions(info){

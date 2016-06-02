@@ -14,8 +14,8 @@ mapCountryBuildings['Ecuador'] = {buildings:['Quito', 'Guayaquil']};
 
 /*A couple of functions to execute when loading the specific form for each of them*/
 
-function setAltaInternoBehaviour(){
 
+function checkBuildings(){
   var countryChoosen = $("#selectPais option:selected").attr("id");
   $('#selectEdificio').find('option').remove().end();
   mapCountryBuildings[countryChoosen].buildings.forEach(function(building, index, array){
@@ -24,14 +24,12 @@ function setAltaInternoBehaviour(){
       text: building
     }));
   });
+}
 
+function setAltaInternoBehaviour(){
   $("#altaInterno-row button").click(function(){
     var data = {};
-    /**
-    data.nombre = "lucas";
-    data.apellido = "lencinas";
-    data.idIBM = 999999;
-    **/
+
     data.pais = $("#selectPais option:selected").attr("id");
     data.edificio = $("#selectEdificio option:selected").attr("id");
     data.piso = $('input[name=textPiso]').val();
