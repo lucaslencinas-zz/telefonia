@@ -69,10 +69,9 @@ function sendFManagerDenial(){
     }),
     url: "/managers/rechazar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalRechazarTicketConfirmacion').modal('toggle');
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se rechazó el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -92,9 +91,9 @@ function sendFManagerApproval(){
     }),
     url: "/managers/aprobar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se aprobó exitosamente el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -118,9 +117,9 @@ function sendTelefoniaLocalApproval(){
     }),
     url: "/telefoniaLocal/aprobar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se aprobó exitosamente el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -141,10 +140,9 @@ function sendTelefoniaLocalDenial(){
     }),
     url: "/telefoniaLocal/rechazar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalRechazarTicketConfirmacion').modal('toggle');
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se rechazó el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -165,9 +163,9 @@ function sendTelefoniaAdminApproval(){
     }),
     url: "/telefoniaAdmin/aprobar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se aprobó exitosamente el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -188,10 +186,9 @@ function sendTelefoniaAdminDenial(){
     }),
     url: "/telefoniaAdmin/rechazar",
     success: function (response) {
-      alert(JSON.stringify(response));
-      $('#modalRechazarTicketConfirmacion').modal('toggle');
-      $('#modalTicketDescription').modal('toggle');
-      location.reload();
+      bootbox.alert("<strong>Resultado: Se rechazó el ticket nro:" + response.id + ".</strong>", function() {
+        location.reload();
+      });
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -248,7 +245,7 @@ function loadUserServices(servicesType){
     url: "/servicios/" + urlService + (Cookies.get("isManager") == "Y"? "/manager/":"/" ) + Cookies.get('idIBM'),
     success: function (response) {
       if(response.result == "error"){
-        $(".table-responsive").prepend(response.value);
+        $(".table-responsive").prepend("<div class='alert alert-warning' role='alert'>" + response.value + "</div>");
       }else{
         renderServiceOnTable(response.value);
       }
@@ -268,6 +265,7 @@ function renderServiceOnTable(servicios){
     var ticket = new Ticket(servicio);
     $("table tbody").append(ticket.toRowString());
   });
+  $("tbody .fa-spin").hide();
 }
 
 
@@ -285,6 +283,7 @@ function cargarTraerDatosRow(onLoadFunction){
           if(response.result == "error"){
             $("#traerDatosErrorMsg").html(response.value);
             $("#nroEmpleado").css("border-color", "red");
+            clearRightTraerDatosForm();
           }else{
             $("#traerDatosErrorMsg").html("");
             $("#nroEmpleado").css("border-color", "#ccc");
@@ -301,6 +300,17 @@ function cargarTraerDatosRow(onLoadFunction){
       });
     });
   });
+}
+
+function clearRightTraerDatosForm(){
+  $('#fullNameUsuarioEnAlta span').text("");
+  $('#idIBMEnAlta span').text("");
+  $('#departamentoEnAlta span').text("");
+  $('#gerente1EnAlta span').text("");
+  $('#gerente2EnAlta span').text("");
+  $('#idGerente1EnAlta span').text("");
+  $('#idGerente2EnAlta span').text("");
+  $('#rowTraerDatos').next().find('input, textarea, button, select').attr('disabled',true);
 }
 
 function habilitarForm(response, onLoadFunction){
@@ -322,6 +332,7 @@ function renderResponseOnTraerDatos(response){
 
 
 function abrirModalDeTicket(nroTicket){
+  $("#i" + nroTicket).css("display", "inline-block");
   $.ajax({
     type: "GET",
     contentType: "application/json",
@@ -337,6 +348,9 @@ function abrirModalDeTicket(nroTicket){
           requestTicketLogs(response.value.ticket);
         });
       }
+    },
+    complete: function(){
+      $("#i" + nroTicket).hide();
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -354,7 +368,9 @@ function requestTicketLogs(ticket){
         bootbox.alert("Hubo un error con los logs del ticket: " + response.value);
       }else{
         response.value.forEach(function(log, index, array){
-            $('#logsList').append('<li>'+log.descripcion+'</li>');
+          var fecha = new Date(log.datetime);
+          fecha.toCorrectTimezone();
+          $('#logsList').append('<li><strong>'+ fecha.toLocaleString() + "</strong>: " + log.descripcion+'</li>');
         });
       }
     },
@@ -376,7 +392,9 @@ function loadContentAltaInternoModal(info){
   $("#textFManager").val(info.fManager);
   $("#textIdSManager").val(info.idSManager);
   $("#textSManager").val(info.sManager);
-  $("#textFechaInicio").val((new Date(info.fechaInicio)).toLocaleString());
+  var fecha = new Date(info.fechaInicio);
+  fecha.toCorrectTimezone();
+  $("#textFechaInicio").val(fecha.toLocaleString());
   $("#textPiso").val(info.piso);
   $("#textDepartamento").val(info.departamento);
   $("#textInterno").val(info.intReferencia);
@@ -421,17 +439,14 @@ function checkPermittedActions(info){
   }
   if(actionNeededAsManager){
     $("#btnAprobarTicket").click(function(event){
-      console.log("actionNeededAsManager");
       sendFManagerApproval();
       event.stopImmediatePropagation();
     });
     $("#btnRechazarTicket").click(function(event){
-      console.log("actionNeededAsManager");
       $('#modalRechazarTicketConfirmacion').modal('toggle');
       event.stopImmediatePropagation();
     });
     $("#btnModalRechazar").click(function(event){
-      console.log("actionNeededAsManager");
       sendFManagerDenial();
       event.stopImmediatePropagation();
     });
@@ -439,24 +454,20 @@ function checkPermittedActions(info){
 
   if(actionNeededAsTelefoniaLocal){
     $("#btnAprobarTicket").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       $('#modalAprobarTicketConfirmacion').modal('toggle');
       $(".form-group-local").show();
       $(".form-group-admin").hide();
       event.stopImmediatePropagation();
     });
     $("#btnModalAprobar").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       sendTelefoniaLocalApproval();
       event.stopImmediatePropagation();
     });
     $("#btnRechazarTicket").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       $('#modalRechazarTicketConfirmacion').modal('toggle');
       event.stopImmediatePropagation();
     });
     $("#btnModalRechazar").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       sendTelefoniaLocalDenial();
       event.stopImmediatePropagation();
     });
@@ -464,24 +475,20 @@ function checkPermittedActions(info){
 
   if(actionNeededAsTelefoniaAdmin){
     $("#btnAprobarTicket").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       $('#modalAprobarTicketConfirmacion').modal('toggle');
       $(".form-group-local").hide();
       $(".form-group-admin").show();
       event.stopImmediatePropagation();
     });
     $("#btnModalAprobar").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       sendTelefoniaAdminApproval();
       event.stopImmediatePropagation();
     });
     $("#btnRechazarTicket").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       $('#modalRechazarTicketConfirmacion').modal('toggle');
       event.stopImmediatePropagation();
     });
     $("#btnModalRechazar").click(function(event){
-      console.log("actionNeededAsTelefoniaLocal");
       sendTelefoniaAdminDenial();
       event.stopImmediatePropagation();
     });

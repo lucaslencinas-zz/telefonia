@@ -15,8 +15,7 @@ router.post('/aprobar', function(req, res) {
         if (err2) {
           throw err2;
         }
-        console.log('Id del registro modificado: ', result.insertId);
-        res.json({"id": result.insertId});
+        res.json({"id": req.body.ticket});
         connection.release();
       });
     });
@@ -36,8 +35,7 @@ router.post('/rechazar', function(req, res) {
         if (err2) {
           throw err2;
         }
-        console.log('Id del registro modificado: ', result.insertId);
-        res.json({"id": result.insertId});
+        res.json({"id": req.body.ticket});
         connection.release();
       });
     });

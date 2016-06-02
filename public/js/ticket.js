@@ -16,7 +16,7 @@ Ticket.prototype.diHola = function() {
 Ticket.prototype.toRowString = function(){
   var stringRow = "<tr>";
   stringRow += "<tr>";
-  stringRow += "<th scope='row'><a onclick='abrirModalDeTicket(" + this.ticket + ");'>" + this.ticket + "</a></th>";
+  stringRow += "<th scope='row'><a onclick='abrirModalDeTicket(" + this.ticket + ");'>" + this.ticket + "</a> <i id='i" + this.ticket + "' class='fa fa-spinner fa-spin fa-lg fa-fw'></i></th>";
   stringRow += "<td>" + this.fullName + "</td>";
   stringRow += "<td>" + this.idIBM + "</td>";
   stringRow += "<td>" + this.localDate() + "</td>";
@@ -30,16 +30,19 @@ Ticket.prototype.toRowString = function(){
 
 Ticket.prototype.localTime = function(){
   var time = new Date(this.fechaInicio);
+  time.toCorrectTimezone();
   return time.toLocaleTimeString();
 }
 
 Ticket.prototype.localDateTime = function(){
   var dateTime = new Date(this.fechaInicio);
+  dateTime.toCorrectTimezone();
   return dateTime.toLocaleString();
 }
 
 Ticket.prototype.localDate = function(){
   var date = new Date(this.fechaInicio);
+  date.toCorrectTimezone();
   return date.toLocaleDateString();
 }
 
