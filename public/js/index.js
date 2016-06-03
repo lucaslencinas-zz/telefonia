@@ -39,7 +39,7 @@ $(function(){
 function loadInitialPage(){
   $("#dropdownNombreUsuario").text(Cookies.get('fullName').split(" ")[0]);
   $("#container-fluid").load(controllers["servicios-a"].pagina, function(){
-    $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
+    $(".my-page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
     $(".fa-spin").hide();
     loadUserServices("servicios-a");
   });
@@ -220,7 +220,7 @@ function addRedirectionToLeftLinks(){
   $(".side-nav a").click(function(){
     var servicesTypes = $(this).attr("id");
     $("#container-fluid").load(controllers[servicesTypes].pagina,function(){
-      $(".page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
+      $(".my-page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
       $(".fa-spin").hide();
       loadUserServices(servicesTypes);
     });
