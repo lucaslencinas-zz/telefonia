@@ -6,24 +6,6 @@
   padding: 10px 15px;
 }
 
-
-@media (min-width: 768px){
-  #modalTicketDescription .modal-body, #modalTicketDescription .panel-body{
-    padding: 5px;
-  }
-}
-
-#modalTicketDescription .panel-body{
-  overflow-y: scroll;
-  max-height: 400px;
-}
-
-#modalTicketDescription .well{
-  overflow-y: scroll;
-  max-height: 80px;
-}
-
-
 #altaInterno-row .well-sm{
   margin-bottom: 0px;
 }

@@ -17,6 +17,7 @@ body {
   margin-top: 100px;
   background-image: linear-gradient(rgb(0, 0, 0), rgb(74, 112, 113));
   background-repeat: no-repeat;
+  font-size: 12px;
 }
 
 html{
@@ -224,4 +225,47 @@ ul.alert-dropdown {
 .navbar-inverse {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
+}
+
+
+#description-ticket-altaInterno-row .panel-body{
+  overflow-y: scroll;
+  max-height: 360px;
+  padding: 5px 5px;
+}
+
+#description-ticket-altaInterno-row .well{
+  overflow-y: scroll;
+  max-height: 80px;
+  font-size: 11px;
+  padding: 5px;
+  margin-bottom: 0px;
+
+}
+
+#description-ticket-altaInterno-row label{
+  padding: 5px 0px;
+  font-size: 12px;
+}
+
+#description-ticket-altaInterno-row .checkbox{
+  padding-top: 0px;
+}
+
+.available-actions{
+  float: right;
+  padding-top: 5px;
+}
+
+/* for making the ticket description smaller*/
+
+#description-ticket-altaInterno-row .input-sm {
+  font-size: 10px;
+  height: 26px;
+  line-height: 15px;
+}
+
+#description-ticket-altaInterno-row select.input-sm {
+  height: 26px;
+  line-height: 30px;
 }

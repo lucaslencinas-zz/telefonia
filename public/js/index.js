@@ -25,6 +25,8 @@ controllers['re-asignar-a'] = reasignarController;
 controllers['dar-de-baja-a'] = darDeBajaController;
 controllers['revalidar-a'] = revalidarController;
 
+controllers['ticketDescription'] = ticketDescriptionController;
+
 /*When the page is loaded*/
 $(function(){
   if(isLoggedIn()){
@@ -343,11 +345,11 @@ function abrirModalDeTicket(nroTicket){
       if(response.result == "error"){
         bootbox.alert("Hubo un error con el ticket: " + response.value);
       }else{
-        $('#modalTicketDescription').modal('toggle');
-        var modalBody = $("#modalTicketDescription .modal-body");
-        modalBody.load("modal-content-alta-interno.html", function(){
-          loadContentAltaInternoModal(response.value);
-          requestTicketLogs(response.value.ticket);
+        //load("modal-content-alta-interno.html"
+        $("#container-fluid").load(controllers['ticketDescription'].pagina,function(){
+          $(".my-page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
+          $(".fa-spin").hide();
+          loadTicketOnForm(response.value);
         });
       }
     },
@@ -359,6 +361,12 @@ function abrirModalDeTicket(nroTicket){
     }
   });
 }
+
+function loadTicketOnForm(ticket){
+  loadContentAltaInternoModal(ticket);
+  requestTicketLogs(ticket.ticket);
+}
+
 
 function requestTicketLogs(ticket){
   $.ajax({
@@ -452,14 +460,14 @@ function checkPermittedActions(info){
   var actionNeededAsTelefoniaLocal = Cookies.get("isTelefoniaLocal") == "Y" && Cookies.get("pais") == info.pais && info.estado == "pendienteTelefoniaLocal";
   var actionNeededAsTelefoniaAdmin = Cookies.get("isTelefoniaAdmin") == "Y" && info.estado == "pendienteTelefoniaAdmin";
 
-  $(".modal-footer .btn-success").hide();
-  $(".modal-footer .btn-danger").hide();
-  $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
+  $(".available-actions .btn-success").hide();
+  $(".available-actions .btn-danger").hide();
+  $('#description-ticket-altaInterno-row').find('input, textarea, button, select').attr('disabled',true);
 
   if(actionNeededAsManager || actionNeededAsTelefoniaAdmin || actionNeededAsTelefoniaLocal){
-    $(".modal-footer .btn-success").show();
-    $(".modal-footer .btn-danger").show();
-    $('#altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
+    $(".available-actions .btn-success").show();
+    $(".available-actions .btn-danger").show();
+    $('#description-ticket-altaInterno-row').find('input, textarea, button, select').attr('disabled',false);
   }
   if(actionNeededAsManager){
     $("#btnAprobarTicket").click(function(event){

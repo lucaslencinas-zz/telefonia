@@ -30,3 +30,5 @@ var resetPasswordController  = new Controller("reset-password-div.html", undefin
 var reasignarController  = new Controller("re-asignar-div.html", undefined, undefined);
 var darDeBajaController  = new Controller("dar-de-baja-div.html", undefined, undefined);
 var revalidarController  = new Controller("revalidar-div.html", undefined, undefined);
+
+var ticketDescriptionController = new Controller("ticket-description-alta-interno.html", undefined, undefined);
