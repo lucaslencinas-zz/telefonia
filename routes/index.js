@@ -5,10 +5,10 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 
   console.log("adentro del get a /");
-  if(req.cookies.mail == undefined || req.cookies.password == undefined){
-    res.render('login.html');
+  if(req.cookies.fullName == undefined || req.cookies.idIBM == undefined || req.cookies.isManager == undefined){
+    res.redirect('login.html');
   }else{
-    res.render('index.html');
+    res.redirect('index.html');
   }
 });
 
