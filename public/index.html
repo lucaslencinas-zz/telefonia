@@ -42,25 +42,28 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-left top-nav">
-                <li class="dropdown">
-                  <a href="#" data-toggle="modal" data-target="#modalNuevoServicio">Nuevo Servicio</a>
-                </li>
+              <li class="dropdown">
+                <a href="#" data-toggle="modal" data-target="#modalNuevoServicio">Nuevo Servicio</a>
+              </li>
+              <li class="dropdown" id="acciones">
+              </li>
             </ul>
+
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-user"></i>&nbsp;<i id="dropdownNombreUsuario">John Smith </i>&nbsp;<b class="caret"></b>
-                   </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#" id="logoutButton"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user"></i>&nbsp;<i id="dropdownNombreUsuario">John Smith </i>&nbsp;<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#" id="logoutButton"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                  </li>
+                </ul>
+              </li>
             </ul>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -170,26 +173,66 @@
       </div>
     </div>
 
+    <div class="modal fade bs-example-modal-sm" id="modalLoginPasswordReset" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalLabeLoginPasswordReset">Reset Login Password</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Esta seguro que desea resetear su password de login?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="resetLoginPaswordBtn" onclick="handlerResetPasswordLogin()">Reset</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" id="modalVoiceMailPasswordReset" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalLabeVoiceMailPasswordReset">Reset VoiceMail Password</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Esta seguro que desea resetear su password de VoiceMail?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="resetVoiceMailPaswordBtn" onclick="handlerResetPasswordVoiceMail()">Reset</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade" id="modalRechazarTicketConfirmacion" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
       <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Rechazo de Ticket</h4>
-            </div>
-            <div class="modal-body">
-              <div class="form-horizontal">
-                <div class="form-group">
-                    <label for="motivoFManager" class="col-sm-4 control-label input-sm">Motivo: </label>
-                    <div class="col-sm-8">
-                        <textarea class="form-control input-sm" id="motivoRechazoEnModal" rows="4"></textarea>
-                    </div>
+          <div class="modal-header">
+            <h4 class="modal-title">Rechazo de Ticket</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="motivoFManager" class="col-sm-4 control-label input-sm">Motivo: </label>
+                <div class="col-sm-8">
+                  <textarea class="form-control input-sm" id="motivoRechazoEnModal" rows="4"></textarea>
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-success" id="btnModalRechazar">Rechazar</button>
-              <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-success" id="btnModalRechazar">Rechazar</button>
+            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+          </div>
         </div>
       </div>
     </div>

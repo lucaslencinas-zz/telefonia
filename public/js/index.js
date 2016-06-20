@@ -335,7 +335,7 @@ function renderResponseOnTraerDatos(response){
 
 
 
-function abrirModalDeTicket(nroTicket){
+function abrirInfoTicket(nroTicket){
   $("#i" + nroTicket).css("display", "inline-block");
   $.ajax({
     type: "GET",
@@ -345,7 +345,6 @@ function abrirModalDeTicket(nroTicket){
       if(response.result == "error"){
         bootbox.alert("Hubo un error con el ticket: " + response.value);
       }else{
-        //load("modal-content-alta-interno.html"
         $("#container-fluid").load(controllers['ticketDescription'].pagina,function(){
           $(".my-page-header").append("<i class='fa fa-spinner fa-spin fa-lg fa-fw'></i>");
           $(".fa-spin").hide();
@@ -363,10 +362,69 @@ function abrirModalDeTicket(nroTicket){
 }
 
 function loadTicketOnForm(ticket){
-  loadContentAltaInternoModal(ticket);
+  addActionsBasedOnTicket(ticket);
+  loadContentAltaInternoForm(ticket);
   requestTicketLogs(ticket.ticket);
 }
 
+function addActionsBasedOnTicket(ticket){
+  /*
+  dependiendo el tipo de servicio, se deberian cargar las
+  acciones que solo se peuden ejecutar en ese tipo de ticket
+  */
+  if(ticket.estado == "aprobado"){
+    $("#acciones").load("accionesAltaInterno.html",function(){
+      console.log("se termino de cargar las acciones");
+      if(ticket.voicemail == "SI"){
+        $("#acciones ul").append("<li><a href='#' data-toggle='modal' data-target='#modalVoiceMailPasswordReset'>Reset password VoiceMail</a></li>");
+      }
+    });
+  }
+}
+
+function handlerResetPasswordLogin(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: $("#textIdFManager").val(),
+      fullName: $("#textFManager").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
+    url: "/acciones/loginPasswordReset",
+    success: function (response) {
+      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Su nueva password de Login es:" + response.nuevaPassword + ".</strong>", function() {
+        location.reload();
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
+    }
+  });
+}
+
+function handlerResetPasswordVoiceMail(){
+  $.ajax({
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      ticket: $("#textTicket").val(),
+      idIBM: $("#textIdFManager").val(),
+      fullName: $("#textFManager").val(),
+      fecha: new Date().toMysqlFormat()
+    }),
+    url: "/acciones/voiceMailPasswordReset",
+    success: function (response) {
+      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Su nueva password de Login es:" + response.nuevaPassword + ".</strong>", function() {
+        location.reload();
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown ){
+      bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
+    }
+  });
+}
 
 function requestTicketLogs(ticket){
   $.ajax({
@@ -390,7 +448,7 @@ function requestTicketLogs(ticket){
   });
 }
 
-function loadContentAltaInternoModal(info){
+function loadContentAltaInternoForm(info){
 
   var ticket = new Ticket(info);
 

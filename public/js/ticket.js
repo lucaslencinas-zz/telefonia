@@ -44,7 +44,7 @@ function Ticket(servicio) {
 Ticket.prototype.toRowString = function(){
   var stringRow = "<tr>";
   stringRow += "<tr>";
-  stringRow += "<th scope='row'><a onclick='abrirModalDeTicket(" + this.ticket + ");'>" + this.ticket + "</a> <i id='i" + this.ticket + "' class='fa fa-spinner fa-spin fa-lg fa-fw'></i></th>";
+  stringRow += "<th scope='row'><a onclick='abrirInfoTicket(" + this.ticket + ");'>" + this.ticket + "</a> <i id='i" + this.ticket + "' class='fa fa-spinner fa-spin fa-lg fa-fw'></i></th>";
   stringRow += "<td>" + this.fullName + "</td>";
   stringRow += "<td>" + this.idIBM + "</td>";
   stringRow += "<td>" + this.localDate() + "</td>";

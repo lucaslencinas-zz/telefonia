@@ -14,6 +14,7 @@ var data = require('./routes/data')
 var logs = require('./routes/logs')
 var adminsLevel = require('./routes/adminsLevel')
 var index = require('./routes/index')
+var acciones = require('./routes/acciones')
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/data', data)
 app.use('/logs', logs)
 app.use('/adminsLevel', adminsLevel)
 app.use('/', index)
+app.use('/acciones', acciones)
 
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
