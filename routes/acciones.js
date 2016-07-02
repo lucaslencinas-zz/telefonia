@@ -18,7 +18,10 @@ router.post('/loginPasswordReset', function(req, res) {
         if (err2) {
           throw err2;
         }
-        var temporaryPassword = generateRandomPassword();
+        var temporaryPassword = randomstring.generate({
+          length: 6,
+          charset: 'alphanumeric'
+        });
         var content = {
           title: "Login Password Reset - TelefoniaIBM",
           text: "Usted ha solicitado un reset de password de login. Utilice la siguiente contraseña para ingresar: "
@@ -41,7 +44,10 @@ router.post('/voiceMailPasswordReset', function(req, res) {
         if (err2) {
           throw err2;
         }
-        var temporaryPassword = generateRandomPassword();
+        var temporaryPassword = randomstring.generate({
+          length: 8,
+          charset: 'numeric'
+        });
         var content = {
           title: "VoiceMail Password Reset - TelefoniaIBM",
           text: "Usted ha solicitado un reset de password de VoiceMail. Utilice la siguiente contraseña para ingresar: "
@@ -51,16 +57,6 @@ router.post('/voiceMailPasswordReset', function(req, res) {
     });
   });
 });
-
-function generateRandomPassword(){
-  /*generar alguna password con un hash o algoritmo asi*/
-  var pass = randomstring.generate({
-    length: 6,
-    charset: 'alphanumeric'
-  });;
-  console.log('nueva password generada: ' + pass);
-  return pass;
-}
 
 function sendTempPasswordByEmail(password, res, connection, content){
   console.log('enviar password: ' + password + ' por email');
