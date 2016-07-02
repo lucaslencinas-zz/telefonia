@@ -247,3 +247,37 @@ exports.buildRechazoTelefoniaAdminQueryString = function(pedido){
   console.log(query);
   return query;
 }
+
+/* --- Generacion de queries de acciones ---*/
+
+exports.buildCreatePasswordLoginResetQueryString = function(pedido){
+  var nivelAprobacion = 0;
+  var query = "INSERT INTO acciones (idIBM, fullName, servicio, ticketRef, servicioRef, nivelAprobacion, estado, fechaInicio, fechaCerrado)";
+  query += " VALUES ('" + pedido.idIBM + "','" + pedido.fullName + "','reset login password',"  + pedido.ticket  + ",'alta interno'," + nivelAprobacion + ",'";
+  query += "aprobado" + "','" + pedido.fecha + "','" + pedido.fecha + "')";
+  console.log(query);
+  return query;
+}
+
+exports.buildCreatePasswordLoginResetLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, datetime, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", '"  + pedido.fecha  + "', 'Reset Login Passowrd', " + "'" + pedido.fullName + " ha hecho un Reset de Password de Login sobre el ticket nro " + pedido.ticket + " ')";
+  console.log(query);
+  return query;
+}
+
+exports.buildCreatePasswordVoiceMailResetQueryString = function(pedido){
+  var nivelAprobacion = 0;
+  var query = "INSERT INTO acciones (idIBM, fullName, servicio, ticketRef, servicioRef, nivelAprobacion, estado, fechaInicio, fechaCerrado)";
+  query += " VALUES ('" + pedido.idIBM + "','" + pedido.fullName + "','reset voicemail password',"  + pedido.ticket  + ",'alta interno'," + nivelAprobacion + ",'";
+  query += "aprobado" + "','" + pedido.fecha + "','" + pedido.fecha + "')";
+  console.log(query);
+  return query;
+}
+
+exports.buildCreatePasswordVoiceMailResetLogQueryString = function(pedido){
+  var query = "INSERT INTO logs (idIBM, fullName, ticket, datetime, servicio, descripcion) ";
+  query += "VALUES ('" + pedido.idIBM + "', '" + pedido.fullName + "', " + pedido.ticket + ", '"  + pedido.fecha  + "', 'Reset Login Passowrd', " + "'" + pedido.fullName + " ha hecho un Reset de Password de VoiceMail sobre el ticket nro " + pedido.ticket + " ')";
+  console.log(query);
+  return query;
+}

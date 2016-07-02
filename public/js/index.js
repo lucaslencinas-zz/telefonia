@@ -375,28 +375,34 @@ function addActionsBasedOnTicket(ticket){
   if(ticket.estado == "aprobado"){
     $("#acciones").load("accionesAltaInterno.html",function(){
       console.log("se termino de cargar las acciones");
+      $("#modalLoginPasswordReset .fa-spin").hide();
       if(ticket.voicemail == "SI"){
         $("#acciones ul").append("<li><a href='#' data-toggle='modal' data-target='#modalVoiceMailPasswordReset'>Reset password VoiceMail</a></li>");
+        $("#modalVoiceMailPasswordReset .fa-spin").hide();
       }
     });
   }
 }
 
 function handlerResetPasswordLogin(){
+  $("#modalLoginPasswordReset .fa-spin").css("display","inline-block");
   $.ajax({
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify({
       ticket: $("#textTicket").val(),
-      idIBM: $("#textIdFManager").val(),
-      fullName: $("#textFManager").val(),
+      idIBM: $("#textIdIBM").val(),
+      fullName: $("#textFullName").val(),
       fecha: new Date().toMysqlFormat()
     }),
     url: "/acciones/loginPasswordReset",
     success: function (response) {
-      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Su nueva password de Login es:" + response.nuevaPassword + ".</strong>", function() {
+      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Se le ha enviado un mail a su casilla de correo con una contraseña para que pueda acceder a su cuenta.</strong>", function() {
         location.reload();
       });
+    },
+    complete: function(){
+      $("#modalLoginPasswordReset .fa-spin").hide();
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
@@ -405,20 +411,24 @@ function handlerResetPasswordLogin(){
 }
 
 function handlerResetPasswordVoiceMail(){
+  $("#modalVoiceMailPasswordReset .fa-spin").css("display","inline-block");
   $.ajax({
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify({
       ticket: $("#textTicket").val(),
-      idIBM: $("#textIdFManager").val(),
-      fullName: $("#textFManager").val(),
+      idIBM: $("#textIdIBM").val(),
+      fullName: $("#textFullName").val(),
       fecha: new Date().toMysqlFormat()
     }),
     url: "/acciones/voiceMailPasswordReset",
     success: function (response) {
-      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Su nueva password de Login es:" + response.nuevaPassword + ".</strong>", function() {
+      bootbox.alert("<strong>Se reseteó exitosamente la password.<br> Se le ha enviado un mail a su casilla de correo con una contraseña para que pueda acceder a su VoiceMail.</strong>", function() {
         location.reload();
       });
+    },
+    complete: function(){
+      $("#modalVoiceMailPasswordReset .fa-spin").hide();
     },
     error: function(jqXHR, textStatus, errorThrown ){
       bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
