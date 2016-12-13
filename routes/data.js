@@ -13,7 +13,7 @@ router.get('/:idUsuario', function(req, res, next) {
       }
       if(rows.length == 0){
         console.log("idIBM no encontrado");
-        res.json({result: "error", value: "id IBM no encontrado"});
+        res.json({result: "error", value: "User ID no encontrado"});
       }else{
         console.log('Login Correcto');
         res.json({result: "ok", value: rows[0] });

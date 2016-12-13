@@ -23,7 +23,7 @@ router.post('/loginPasswordReset', function(req, res) {
           charset: 'alphanumeric'
         });
         var content = {
-          title: "Login Password Reset - TelefoniaIBM",
+          title: "Login Password Reset - Telefonia",
           text: "Usted ha solicitado un reset de password de login. Utilice la siguiente contraseña para ingresar: "
         };
         sendTempPasswordByEmail(temporaryPassword, res, connection, content);
@@ -49,7 +49,7 @@ router.post('/voiceMailPasswordReset', function(req, res) {
           charset: 'numeric'
         });
         var content = {
-          title: "VoiceMail Password Reset - TelefoniaIBM",
+          title: "VoiceMail Password Reset - Telefonia",
           text: "Usted ha solicitado un reset de password de VoiceMail. Utilice la siguiente contraseña para ingresar: "
         };
         sendTempPasswordByEmail(temporaryPassword, res, connection, content);
@@ -62,7 +62,7 @@ function sendTempPasswordByEmail(password, res, connection, content){
   console.log('enviar password: ' + password + ' por email');
   // setup e-mail data with unicode symbols
   var data = {
-    from: 'Base Telefonia <basetelefonia@ibm.com>',
+    from: 'Base Telefonia <basetelefonia@company.com>',
     to: 'lllencinas@gmail.com',
     subject: content.title,
     text: content.text + password
