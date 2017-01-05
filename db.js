@@ -1,11 +1,12 @@
 var mysql = require('mysql');
+var config = require('config');
 
 var pool  = mysql.createPool({
   connectionLimit : 10,
-  host     : 'us-cdbr-iron-east-03.cleardb.net',
-  user     : 'b907d8d6e3ab57',
-  password : '06e49fb8',
-  database : 'heroku_74c23f2458ff8ba'
+  host     : config.app.dbConfig.host,
+  user     : config.app.dbConfig.user,
+  password : config.app.dbConfig.password,
+  database : config.app.dbConfig.database
 });
 
 exports.getConnection = function(callback) {

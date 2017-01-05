@@ -1,0 +1,10 @@
+{
+  "app": {
+    "dbConfig": {
+      "host"   : "localhost",
+      "user"     : "root",
+      "password" : "root",
+      "database" : "telefonia"
+    }
+  }
+}
