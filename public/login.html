@@ -113,14 +113,19 @@
       data: JSON.stringify({mail:mail,password:pass}),
       url: "/ibmLogin",
       success: function (response) {
-        console.log(JSON.stringify(response));
+        console.log("Informando JSON response"+ JSON.stringify(response));
+
         if(response.result == "error"){
           $(".fa-spin").hide();
           $("#errorMsg").html(response.value);
           $(".form-signin input").css("border-color", "red");
         }else{
           logIn(response);
+
+          location.href="index.html";
+
           /*Check admin levels*/
+          /*
           $.ajax({
             type: "POST",
             contentType: "application/json",
@@ -137,6 +142,8 @@
               bootbox.alert(JSON.stringify(jqXHR) + ". " + JSON.stringify(textStatus) + JSON.stringify(errorThrown) );
             }
           });
+
+          */
         }
       },
       error: function(){
